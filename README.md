@@ -12,7 +12,6 @@ Project uses [Vite](https://vitejs.dev/) for base architecture and a development
 2. `npm run dev`
 3. `Got URL http://127.0.0.1:5173/`
 
-
 **Steps to run prod build:**
 1. `npm install`
 2. `npm run build`
