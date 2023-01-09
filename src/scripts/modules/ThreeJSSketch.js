@@ -26,6 +26,8 @@ export default class ThreeJSSketch {
         this.height = window.innerHeight;
         this.time = 0;
         this.speed = 0;
+        this.geometry = null;
+        this.plane = null;
         this.meshGroup = new THREE.Group();
         this.meshes = [];
         this.materials = [];
@@ -91,11 +93,17 @@ export default class ThreeJSSketch {
 
     setControls() {
         // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        if (this.options.orbitControls) {
+            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        }
     }
 
     createObjects() {
-        console.log('Building objects');
+        console.log('Building 3JS Sketch Objects');
+        this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
+        this.plane = new THREE.Mesh(this.geometry, this.material);
+        this.scene.add(this.plane);
+        this.meshes.push(this.plane);
     }
 
     createMaterial() {
@@ -127,8 +135,8 @@ export default class ThreeJSSketch {
             },
             // wireframe: true,
             transparent: true,
-            vertexShader: vertex,
-            fragmentShader: fragment
+            // vertexShader: vertex,
+            // fragmentShader: fragment
         });
     }
 
