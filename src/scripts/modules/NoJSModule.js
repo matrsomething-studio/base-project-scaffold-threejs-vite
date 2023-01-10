@@ -3,17 +3,30 @@
 // Class - NoJSModule
 export default class NoJSModule {
     constructor(options) {
+        this.options = options;
         this.HTML = document.querySelector('html');
 
-        if (options && options.hasOwnProperty('enable') && options.enable === true) {
+        if (this.options && this.options.hasOwnProperty('enable') && this.options.enable === true) {
             this.enable();
             return;
         }
 
-        this.disable();
+        this.tests();
     }
+
+    get isWebGLEnabled() {
+        let canvas = document.createElement('canvas');
+
+        if (typeof canvas.getContext === 'function') {
+            return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+        }
+    };
+
+    get isRetina() {
+        return ('devicePixelRatio' in window && window.devicePixelRatio >= 1.5);
+    };
     
-    get isEnabled() {
+    get isJSEnabled() {
         return !this.HTML.classList.contains('no-js') ? true : false;
     };
 
@@ -24,21 +37,22 @@ export default class NoJSModule {
             ( navigator.msMaxTouchPoints > 0 )); 
     };
 
-    enable() {
-        if (this.isEnabled) {
-            this.HTML.classList.remove('js');
-            this.HTML.classList.add('no-js');
-        }
-    };
-
-    disable() {
-        if (!this.isEnabled) {
+    tests() {
+        if (!this.isJSEnabled) {
             this.HTML.classList.remove('no-js');
             this.HTML.classList.add('js');
         }
 
         if (this.isTouchEnabled) {
             this.HTML.classList.add('has-touch');
+        }
+
+        if (this.isRetina) {
+            this.HTML.classList.add('is-retina');
+        }
+
+        if (this.isWebGLEnabled) {
+            this.HTML.classList.add('has-webgl');
         }
     };
 }

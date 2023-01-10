@@ -97,7 +97,6 @@ export default class ThreeSketchModule {
     }
 
     createObjects() {
-        console.log('Building 3JS Sketch Objects');
         this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
         this.plane = new THREE.Mesh(this.geometry, this.material);
         this.scene.add(this.plane);
