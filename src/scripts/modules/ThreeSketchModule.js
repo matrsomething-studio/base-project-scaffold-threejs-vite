@@ -46,8 +46,7 @@ export default class ThreeSketchModule {
         // DAT GUI - https://github.com/dataarts/dat.gui
         this.GUI = new dat.GUI();
         this.meshes.forEach((mesh, indx) => {
-            let folder = this.GUI.addFolder(`Object 00${indx + 1}`);
-            let rotationMax = Math.PI * 2;
+            let folder = this.GUI.addFolder(`Object 00${++indx}`);
             let cords = ['x', 'y', 'z'];
 
             cords.forEach(cord => {
@@ -55,14 +54,13 @@ export default class ThreeSketchModule {
             });
 
             cords.forEach(cord => {
-                folder.add(mesh.rotation, cord, 0, rotationMax, 0.01).name( `Rotate ${cord}`  ); 
+                folder.add(mesh.rotation, cord, 0, Math.PI * 2, 0.01).name( `Rotate ${cord}`  ); 
             });
 
             folder.add(mesh, 'visible', 0, 1, 0.01); 
 
             folder.open();
         });
-        // this.GUI.close();
     }
 
     setScene() {
