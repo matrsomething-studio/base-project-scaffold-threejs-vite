@@ -13,11 +13,11 @@ export default class NoJSModule {
 		this.disable();
 	}
 	
-	isEnabled() {
+	get isEnabled() {
 		return !this.HTML.classList.contains('no-js') ? true : false;
 	};
 
-	isTouchEnabled() { 
+	get isTouchEnabled() { 
 		return !!(( 'ontouchstart' in window ) ||  
 			( window.DocumentTouch && document instanceof window.DocumentTouch) ||
 			( navigator.maxTouchPoints > 0 ) || 
@@ -25,19 +25,19 @@ export default class NoJSModule {
 	};
 
 	enable() {
-		if (this.isEnabled()) {
+		if (this.isEnabled) {
 			this.HTML.classList.remove('js');
 			this.HTML.classList.add('no-js');
 		}
 	};
 
 	disable() {
-		if (!this.isEnabled()) {
+		if (!this.isEnabled) {
 			this.HTML.classList.remove('no-js');
 			this.HTML.classList.add('js');
 		}
 
-		if (this.isTouchEnabled()) {
+		if (this.isTouchEnabled) {
 			this.HTML.classList.add('has-touch');
 		}
 	};
