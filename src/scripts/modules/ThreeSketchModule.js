@@ -5,8 +5,7 @@ import * as THREE from 'three';
 // import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 // Shaders
-import fragment from '../shaders/distort/fragment.glsl';
-import vertex from '../shaders/distort/vertex.glsl';
+import fragmentRGB from '../shaders/rgb/fragment.glsl';
 
 // DAT GUI - https://github.com/dataarts/dat.gui
 import * as dat from 'dat.gui';
@@ -116,30 +115,13 @@ export default class ThreeSketchModule {
             },
             side: THREE.DoubleSide,
             uniforms: {
-                time: {
-                    type: 'f',
-                    value: 0
-                },
-                distanceFromCenter: {
-                    type: 'f',
-                    value: 0
-                },
-                texture1: {
-                    type: 't',
-                    value: null
-                },
-                resolution: {
-                    type: 'v4',
-                    value: new THREE.Vector4()
-                },
-                uvRate1: {
-                    value: new THREE.Vector2(1, 1)
-                }
+                iTime: { value: 0 },
+                iResolution:  { value: new THREE.Vector3() }
             },
             // wireframe: true,
             transparent: true,
             // vertexShader: vertex,
-            // fragmentShader: fragment
+            fragmentShader: fragmentRGB
         });
     }
 
@@ -160,10 +142,10 @@ export default class ThreeSketchModule {
             a2 = (this.height / this.width) / this.imageAspect;
         }
 
-        this.material.uniforms.resolution.value.x = this.width;
-        this.material.uniforms.resolution.value.y = this.height;
-        this.material.uniforms.resolution.value.z = a1;
-        this.material.uniforms.resolution.value.w = a2;
+        this.material.uniforms.iResolution.value.x = this.width;
+        this.material.uniforms.iResolution.value.y = this.height;
+        this.material.uniforms.iResolution.value.z = a1;
+        this.material.uniforms.iResolution.value.w = a2;
 
         this.camera.aspect = this.width / this.height;
         this.camera.updateProjectionMatrix();
@@ -172,13 +154,8 @@ export default class ThreeSketchModule {
     animate() {
         this.time += 0.05;
 
-        if (this.materials) {
-            this.materials.forEach(m => {
-                m.uniforms.time.value = this.time;
-            });
-        } else {
-            this.material.uniforms.time.value = this.time;
-        }
+        this.material.uniforms.iResolution.value.set(this.width, this.height, 1);
+        this.material.uniforms.iTime.value = this.time;
 
         this.controls.update();
         this.renderer.render(this.scene, this.camera);
