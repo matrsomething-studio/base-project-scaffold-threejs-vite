@@ -45,6 +45,10 @@ const App = (() => {
                 SimpleModal.close();
             }
         });
+
+        window.addEventListener('mousemove', function(e){
+            ThreeScene.setMouse(e.clientX, e.clientY);
+        });
     }
 
     function createObjects() {
