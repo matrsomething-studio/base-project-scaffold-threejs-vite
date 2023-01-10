@@ -48,13 +48,21 @@ export default class ThreeSketchModule {
         this.meshes.forEach((mesh, indx) => {
             let folder = this.GUI.addFolder(`Object 00${indx}`);
             let rotationMax = Math.PI * 2;
-            folder.add(mesh.rotation, 'x', 0, rotationMax, 0.01); 
-            folder.add(mesh.rotation, 'y', 0, rotationMax, 0.01); 
-            folder.add(mesh.rotation, 'z', 0, rotationMax, 0.01); 
-            folder.add(mesh, 'visible', 0, 1, 0.01); 
-        });
+            let cords = ['x', 'y', 'z'];
 
-        this.GUI.close();
+            cords.forEach(cord => {
+                folder.add(mesh.position, 'x', -1, 1, 0.01).name( `Translate ${cord}`  ); 
+            });
+
+            cords.forEach(cord => {
+                folder.add(mesh.rotation, cord, 0, rotationMax, 0.01).name( `Rotate ${cord}`  ); 
+            });
+
+            folder.add(mesh, 'visible', 0, 1, 0.01); 
+
+            folder.open();
+        });
+        // this.GUI.close();
     }
 
     setScene() {
