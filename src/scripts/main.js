@@ -7,7 +7,7 @@ import NoJSModule from './modules/NoJSModule';
 import ThreeSceneModule from './modules/ThreeSceneModule';
 
 
-// Main
+// App
 const App = (() => {
     let NoJS = null;
     let ThreeScene = null;
