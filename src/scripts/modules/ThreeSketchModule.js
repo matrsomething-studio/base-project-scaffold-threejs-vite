@@ -17,8 +17,8 @@ import { gsap, Quad } from 'gsap';
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-// Class - ThreeSketch
-export default class ThreeSketch {
+// Class - ThreeSketchModule
+export default class ThreeSketchModule {
     constructor(options) {
         this.options = options;
         this.width = window.innerWidth;

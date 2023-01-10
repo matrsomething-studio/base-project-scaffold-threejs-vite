@@ -1,7 +1,7 @@
 // Module(s)
 
-// Class - NoJS
-export default class NoJS {
+// Class - NoJSModule
+export default class NoJSModule {
 	constructor(options) {
 		this.HTML = document.querySelector('html');
 
