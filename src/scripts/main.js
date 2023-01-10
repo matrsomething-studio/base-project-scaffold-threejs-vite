@@ -1,5 +1,7 @@
 // Style(s)
 import '../styles/main.scss';
+import SimpleModalComponent from './components/SimpleModal';
+
 
 
 // Module(s)
@@ -11,6 +13,7 @@ import ThreeSceneModule from './modules/ThreeSceneModule';
 const App = (() => {
     let NoJS = null;
     let ThreeScene = null;
+    let SimpleModal = null;
     let rafID = null;
 
     function raf() {
@@ -22,11 +25,18 @@ const App = (() => {
         window.addEventListener('resize', (e) => {
             ThreeScene.resize();
         });
+
+        window.addEventListener('keydown', function(e){
+            if (e.key === 'Escape') {
+                SimpleModal.closeModal();
+            }
+        });
     }
 
     function createObjects() {
         NoJS = new NoJSModule();
         ThreeScene = new ThreeSceneModule({ dom: '#scene', orbitControls: true });
+        SimpleModal = new SimpleModalComponent('data-modal="MODAL-ID"');
     }
 
     function init() {
