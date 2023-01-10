@@ -41,7 +41,7 @@ const App = (() => {
     function init() {
         createObjects();
         bindWindowEvents();
-        requestAnimationFrame(raf);
+        raf();
     }
     
     return {

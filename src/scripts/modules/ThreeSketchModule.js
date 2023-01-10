@@ -1,4 +1,5 @@
 // https://threejs.org/
+// https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
 // https://threejs.org/docs/#examples/en/loaders/GLTFLoader
