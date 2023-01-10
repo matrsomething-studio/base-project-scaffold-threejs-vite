@@ -11,10 +11,10 @@ import ThreeSceneModule from './modules/ThreeSceneModule';
 // App
 const App = (() => {
     let NoJS = null;
+    let SimpleModal = null;
     let ThreeScene = null;
     let isPlaying = false;
     let requestID = null;
-    let SimpleModal = null;
 
     function raf() {
         ThreeScene.animate();
