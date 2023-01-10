@@ -1,13 +1,12 @@
 // Style(s)
 import '../styles/main.scss';
+
+// Components(s)
 import SimpleModalComponent from './components/SimpleModal';
-
-
 
 // Module(s)
 import NoJSModule from './modules/NoJSModule';
 import ThreeSceneModule from './modules/ThreeSceneModule';
-
 
 // App
 const App = (() => {
@@ -49,7 +48,6 @@ const App = (() => {
         init: init
     };
 })();
-
 
 // Load App
 document.addEventListener('readystatechange', e => {
