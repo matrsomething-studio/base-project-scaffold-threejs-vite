@@ -42,7 +42,7 @@ const App = (() => {
 
         window.addEventListener('keydown', function(e){
             if (e.key === 'Escape') {
-                SimpleModal.closeModal();
+                SimpleModal.close();
             }
         });
     }

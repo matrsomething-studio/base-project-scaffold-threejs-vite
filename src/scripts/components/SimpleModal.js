@@ -12,13 +12,13 @@ export default class SimpleModal {
         this.bindEvents();
     }
 
-    openModal() {
+    open() {
         this.HTML.style.overflow = 'hidden';
         this.modal.classList.add('modal-open');
         this.isModalOpen = true;
     }
 
-    closeModal() {
+    close() {
         this.HTML.style.overflow = 'auto';
         this.modal.classList.remove('modal-open');
         this.isModalOpen = false;
@@ -27,11 +27,11 @@ export default class SimpleModal {
     bindEvents() {
         this.modalCTA.addEventListener('click', (e) => {
             e.preventDefault();
-            this.openModal();
+            this.open();
         });
 
         this.modalCloseBtn.addEventListener('click', () => {
-            this.closeModal();
+            this.close();
         });
     }
 }
