@@ -13,7 +13,7 @@
 // Util(s)
 
 // Class - SimpleModal
-export default  class SimpleModal {
+export default class SimpleModal {
 	constructor(el) {
 		this.HTML = document.querySelector('html');
 		this.modalCTA = document.querySelector(`[${el}]`);
