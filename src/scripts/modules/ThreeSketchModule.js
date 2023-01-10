@@ -31,7 +31,7 @@ export default class ThreeSketchModule {
         this.meshes = [];
         this.materials = [];
         this.tl = gsap.timeline();
-
+        
         this.setScene();
         this.setRenderer();
         this.setCamera();

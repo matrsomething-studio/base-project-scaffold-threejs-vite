@@ -12,12 +12,27 @@ import ThreeSceneModule from './modules/ThreeSceneModule';
 const App = (() => {
     let NoJS = null;
     let ThreeScene = null;
+    let isPlaying = false;
+    let requestID = null;
     let SimpleModal = null;
-    let rafID = null;
 
     function raf() {
         ThreeScene.animate();
-        rafID = requestAnimationFrame(raf);
+        requestID = requestAnimationFrame(raf);
+    }
+
+    function play() {
+        if (!isPlaying) {
+            raf();
+            isPlaying = true;
+        }
+    }
+
+    function stop() {
+        if (isPlaying) {
+            cancelAnimationFrame(requestID);
+            isPlaying = false;
+        }
     }
 
     function bindWindowEvents() {
@@ -41,7 +56,7 @@ const App = (() => {
     function init() {
         createObjects();
         bindWindowEvents();
-        raf();
+        play();
     }
     
     return {
