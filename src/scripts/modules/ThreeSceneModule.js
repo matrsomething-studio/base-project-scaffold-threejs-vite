@@ -16,11 +16,11 @@ export default class ThreeSceneModule {
         this.sketch.animate();
     }
 
-    bindEvents() {
-        console.log('Binding ThreeSceneModule Events');
-    }
-
     resize() {
         this.sketch.handleResize();
+    }
+
+    bindEvents() {
+        console.log('Binding ThreeSceneModule Events');
     }
 }
