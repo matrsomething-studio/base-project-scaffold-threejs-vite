@@ -30,7 +30,7 @@ export default class ThreeSketchModule {
         this.meshGroup = new THREE.Group();
         this.meshes = [];
         this.materials = {};
-        this.tl = gsap.timeline();
+        // this.tl = gsap.timeline();
         
         this.setScene();
         this.setRenderer();
