@@ -50,7 +50,7 @@ export default class ThreeSketchModule {
             let cords = ['x', 'y', 'z'];
 
             cords.forEach(cord => {
-                folder.add(mesh.position, 'x', -1, 1, 0.01).name( `Translate ${cord}`  ); 
+                folder.add(mesh.position, cord, -1, 1, 0.01).name( `Translate ${cord}`  ); 
             });
 
             cords.forEach(cord => {
@@ -58,7 +58,6 @@ export default class ThreeSketchModule {
             });
 
             folder.add(mesh, 'visible', 0, 1, 0.01); 
-
             folder.open();
         });
     }
