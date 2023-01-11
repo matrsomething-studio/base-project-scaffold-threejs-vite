@@ -22,7 +22,7 @@ export default class ThreeSceneModule {
     }
 
     resize() {
-        this.sketch.handleResize();
+        this.sketch.resize();
     }
 
     bindEvents() {

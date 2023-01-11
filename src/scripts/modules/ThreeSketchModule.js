@@ -40,7 +40,7 @@ export default class ThreeSketchModule {
         this.createMaterial();
         this.createObjects();
         this.createGUI();
-        this.handleResize();
+        this.resize();
     }
 
     createGUI() {
@@ -129,7 +129,7 @@ export default class ThreeSketchModule {
         this.materials.rgb = material;
     }
 
-    handleResize() {
+    resize() {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.renderer.setSize(this.width, this.height);
