@@ -19,3 +19,18 @@
 
 // Sample Page - Partial(s)
 @import 'sample-page/partial-name';
+
+
+#header,
+#footer {
+    position: absolute;
+    width: 100vw;
+}
+
+#header {
+ top: 0
+}
+
+#footer {
+    bottom: 0
+   }

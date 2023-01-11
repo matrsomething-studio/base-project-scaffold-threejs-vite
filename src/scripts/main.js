@@ -58,7 +58,7 @@ const App = (() => {
     function create() {
         NoJS = new NoJSModule();
         ThreeScene = new ThreeSceneModule({ domSelector: '#scene', orbitControls: true });
-        SimpleModal = new SimpleModalComponent('data-modal="MODAL-ID"');
+        SimpleModal = new SimpleModalComponent({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
     }
 
     function init() {
