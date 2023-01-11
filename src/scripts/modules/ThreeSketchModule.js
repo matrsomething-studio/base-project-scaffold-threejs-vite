@@ -33,7 +33,7 @@ export default class ThreeSketchModule {
         this.setRenderer();
         this.setCamera();
         this.setControls();
-        this.createMaterial();
+        this.createMaterials();
         this.createObjects();
         this.createGUI();
         this.resize();
@@ -158,7 +158,7 @@ export default class ThreeSketchModule {
         this.lights.push(directionalLight);  
     }
 
-    createMaterial() {
+    createMaterials() {
         let material = new THREE.ShaderMaterial({
             extensions: {
                 derivatives: '#extension GL_OES_standard_derivatives : enable'
