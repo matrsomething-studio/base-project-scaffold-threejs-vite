@@ -21,13 +21,13 @@ export default class ThreeSketchModule {
         this.container = document.querySelector(this.options.domSelector);
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        this.clock = new THREE.Clock();
         this.time = 0;
+        this.clock = new THREE.Clock();
         this.meshGroup = new THREE.Group();
         this.meshes = [];
         this.lights = [];
         this.materials = {};
-        this.mouse = {x: 0, y: 0, cursor: {x: 0, y: 0} };
+        this.mouse = { x: 0, y: 0, cursor: {x: 0, y: 0} };
         
         this.setScene();
         this.setRenderer();
@@ -37,10 +37,6 @@ export default class ThreeSketchModule {
         this.createObjects();
         this.createGUI();
         this.resize();
-    }
-
-    getTime() {
-        return this.time;
     }
 
     createGUI() {
@@ -80,6 +76,10 @@ export default class ThreeSketchModule {
             folder.add(light, 'intensity', 0, 1, 0.1);
             folder.add(light, 'visible', 0, 1, 0.01); 
         });
+    }
+
+    getTime() {
+        return this.time;
     }
 
     setScene() {
