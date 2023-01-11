@@ -64,7 +64,7 @@ export default class ThreeSketchModule {
 
             folder.add(mesh, 'visible', 0, 1, 0.01); 
 
-            if (indx == 1) {
+            if (indx === 1) {
                 folder.open();
             }
         });
