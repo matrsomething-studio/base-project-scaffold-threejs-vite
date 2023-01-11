@@ -8,10 +8,10 @@ import ThreeSketch from './ThreeSketchModule';
 export default class ThreeSceneModule {
     constructor(options) {
         this.options = options;
+        this.sketch = new ThreeSketch(this.options);
         this.wheel = null;
         this.mouse = null;
-        this.sketch = new ThreeSketch({ dom: document.querySelector(this.options.domSelector), orbitControls: this.options.orbitControls});
-
+        
         this.bindEvents();
     }
 

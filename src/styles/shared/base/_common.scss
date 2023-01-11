@@ -13,6 +13,8 @@ html {
         @extend %theme-dark;
         overflow-x: hidden;
         overflow-y: hidden;
+        width: 100vw;
+        height: 100vh;
    
         main {
      

@@ -18,7 +18,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export default class ThreeSketchModule {
     constructor(options) {
         this.options = options;
-        this.container = this.options.dom;
+        this.container = document.querySelector(this.options.domSelector);
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.clock = new THREE.Clock();
@@ -44,22 +44,21 @@ export default class ThreeSketchModule {
     }
 
     createGUI() {
+        if (!this.options.showGUI) {
+            return;
+        }
+
         // DAT GUI - https://github.com/dataarts/dat.gui
         this.GUI = new dat.GUI();
         const cords = ['x', 'y', 'z'];
 
+        // Meshes
         this.meshes.forEach((mesh, indx) => {
-            let folder = this.GUI.addFolder(`${mesh.geometry.type}  00${++indx}`);
+            let folder = this.GUI.addFolder(`${mesh.geometry.type} 00${++indx}`);
 
             cords.forEach(cord => {
                 folder.add(mesh.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
-            });
-
-            cords.forEach(cord => {
                 folder.add(mesh.rotation, cord, 0, Math.PI * 2, 0.01).name( `Rotate ${cord}` ); 
-            });
-
-            cords.forEach(cord => {
                 folder.add(mesh.scale, cord, 0, 1, 0.01).name( `Scale ${cord}` ); 
             });
 
@@ -70,13 +69,15 @@ export default class ThreeSketchModule {
             }
         });
         
+        // Lights
         this.lights.forEach((light, indx) => {
-            let folder = this.GUI.addFolder(`${light.type}  00${++indx}`);
-            
+            let folder = this.GUI.addFolder(`${light.type} 00${++indx}`);
+
             cords.forEach(cord => {
                 folder.add(light.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
             });
 
+            folder.add(light, 'intensity', 0, 1, 0.1);
             folder.add(light, 'visible', 0, 1, 0.01); 
         });
     }
