@@ -6,15 +6,22 @@ import { gsap, Quad } from 'gsap';
 export default class ThreeSceneModule {
     constructor(options) {
         this.options = options;
+        this.wheel = null;
+        this.mouse = null;
         this.sketch = new ThreeSketch({ dom: document.querySelector(this.options.dom), orbitControls: this.options.orbitControls });
 
         this.bindEvents();
         this.animate();
     }
 
-    setMouse(x, y){
-        this.sketch.mouse.x = x;
-        this.sketch.mouse.y = y;
+    setWheel(wheel){
+        this.wheel = wheel;
+    }
+
+    setMouse(mouse){
+        this.mouse = mouse;
+        this.sketch.mouse.x = this.mouse.x;
+        this.sketch.mouse.y = this.mouse.y;
     }
 
     animate() {

@@ -58,8 +58,15 @@ export default class ThreeSketchModule {
                 folder.add(mesh.rotation, cord, 0, Math.PI * 2, 0.01).name( `Rotate ${cord}`  ); 
             });
 
+            cords.forEach(cord => {
+                folder.add(mesh.scale, cord, 0, 1, 0.01).name( `Scale ${cord}`  ); 
+            });
+
             folder.add(mesh, 'visible', 0, 1, 0.01); 
-            folder.open();
+
+            if (indx == 1) {
+                folder.open();
+            }
         });
     }
 
@@ -91,6 +98,7 @@ export default class ThreeSketchModule {
             0.001,
             1000
         );
+        this.camera.updateProjectionMatrix();
         this.camera.position.set(0, 0, 2);
         this.camera.lookAt(0, 0, 0);
     }
@@ -105,8 +113,15 @@ export default class ThreeSketchModule {
     createObjects() {
         this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
         this.plane = new THREE.Mesh(this.geometry, this.materials.rgb);
+
+        let instance = new THREE.InstancedMesh(this.geometry, this.materials.rgb, 1);
+        instance.position.y += -1.05;
+
         this.scene.add(this.plane);
         this.meshes.push(this.plane);
+
+        this.scene.add(instance);
+        this.meshes.push(instance);
     }
 
     createMaterial() {
@@ -121,8 +136,8 @@ export default class ThreeSketchModule {
                 iMouse: { value: this.mouse }
             },
             // wireframe: true,
-            transparent: true,
             // vertexShader: vertex,
+            transparent: true,
             fragmentShader: fragmentRGB
         });
 
@@ -158,7 +173,7 @@ export default class ThreeSketchModule {
     }
 
     animate() {
-        this.time += 0.05;
+        this.time = performance.now() * .0025;
 
         for (const [key, value] of Object.entries(this.materials)) {
             value.uniforms.iResolution.value.set(this.width, this.height, 1);
