@@ -13,7 +13,6 @@ export default class ThreeSceneModule {
         this.sketch = new ThreeSketch({ dom: document.querySelector(this.options.dom), orbitControls: this.options.orbitControls });
 
         this.bindEvents();
-        this.animate();
     }
 
     setWheel(wheel){
