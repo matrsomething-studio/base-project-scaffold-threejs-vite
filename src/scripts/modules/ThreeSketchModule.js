@@ -169,7 +169,7 @@ export default class ThreeSketchModule {
                 iResolution:  { value: new THREE.Vector3() },
                 iMouse: { value: this.mouse }
             },
-            wireframe: true,
+            // wireframe: true,
             // vertexShader: vertex,
             transparent: true,
             fragmentShader: fragmentRGB
