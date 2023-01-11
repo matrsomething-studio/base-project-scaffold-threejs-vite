@@ -77,10 +77,6 @@ export default class ThreeSketchModule {
                 folder.add(light.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
             });
 
-            cords.forEach(cord => {
-                folder.add(light.scale, cord, 0, 1, 0.01).name( `Scale ${cord}` ); 
-            });
-
             folder.add(light, 'visible', 0, 1, 0.01); 
         });
     }
