@@ -10,7 +10,7 @@ export default class ThreeSceneModule {
         this.options = options;
         this.wheel = null;
         this.mouse = null;
-        this.sketch = new ThreeSketch({ dom: document.querySelector(this.options.dom), orbitControls: this.options.orbitControls });
+        this.sketch = new ThreeSketch({ dom: document.querySelector(this.options.domSelector), orbitControls: this.options.orbitControls});
 
         this.bindEvents();
     }
@@ -21,11 +21,18 @@ export default class ThreeSceneModule {
 
     setMouse(mouse){
         this.mouse = mouse;
-        this.sketch.mouse.x = this.mouse.x;
-        this.sketch.mouse.y = this.mouse.y;
+
+        this.sketch.mouse.x = this.mouse.clientX;
+        this.sketch.mouse.y = this.mouse.clientY ;
+
+        this.sketch.mouse.cursor.x = this.mouse.clientX / this.sketch.width - 0.5;
+        this.sketch.mouse.cursor.y = this.mouse.clientY / this.sketch.height - 0.5;
     }
 
     animate() {
+        // this.sketch.camera.position.x = -this.sketch.mouse.cursor.x;
+        // this.sketch.camera.position.y = -this.sketch.mouse.cursor.y;
+        
         this.sketch.animate();
     }
 

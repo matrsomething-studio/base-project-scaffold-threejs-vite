@@ -21,13 +21,13 @@ export default class ThreeSketchModule {
         this.container = this.options.dom;
         this.width = window.innerWidth;
         this.height = window.innerHeight;
+        this.clock = new THREE.Clock();
         this.time = 0;
-        this.geometry = null;
-        this.plane = null;
         this.meshGroup = new THREE.Group();
         this.meshes = [];
+        this.lights = [];
         this.materials = {};
-        this.mouse = {x: 0, y: 0};
+        this.mouse = {x: 0, y: 0, cursor: {x: 0, y: 0} };
         
         this.setScene();
         this.setRenderer();
@@ -46,20 +46,21 @@ export default class ThreeSketchModule {
     createGUI() {
         // DAT GUI - https://github.com/dataarts/dat.gui
         this.GUI = new dat.GUI();
+        const cords = ['x', 'y', 'z'];
+
         this.meshes.forEach((mesh, indx) => {
-            let folder = this.GUI.addFolder(`Object 00${++indx}`);
-            let cords = ['x', 'y', 'z'];
+            let folder = this.GUI.addFolder(`${mesh.geometry.type}  00${++indx}`);
 
             cords.forEach(cord => {
-                folder.add(mesh.position, cord, -1, 1, 0.01).name( `Translate ${cord}`  ); 
+                folder.add(mesh.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
             });
 
             cords.forEach(cord => {
-                folder.add(mesh.rotation, cord, 0, Math.PI * 2, 0.01).name( `Rotate ${cord}`  ); 
+                folder.add(mesh.rotation, cord, 0, Math.PI * 2, 0.01).name( `Rotate ${cord}` ); 
             });
 
             cords.forEach(cord => {
-                folder.add(mesh.scale, cord, 0, 1, 0.01).name( `Scale ${cord}`  ); 
+                folder.add(mesh.scale, cord, 0, 1, 0.01).name( `Scale ${cord}` ); 
             });
 
             folder.add(mesh, 'visible', 0, 1, 0.01); 
@@ -67,6 +68,20 @@ export default class ThreeSketchModule {
             if (indx == 1) {
                 folder.open();
             }
+        });
+        
+        this.lights.forEach((light, indx) => {
+            let folder = this.GUI.addFolder(`${light.type}  00${++indx}`);
+            
+            cords.forEach(cord => {
+                folder.add(light.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
+            });
+
+            cords.forEach(cord => {
+                folder.add(light.scale, cord, 0, 1, 0.01).name( `Scale ${cord}` ); 
+            });
+
+            folder.add(light, 'visible', 0, 1, 0.01); 
         });
     }
 
@@ -95,7 +110,7 @@ export default class ThreeSketchModule {
             1000
         );
         this.camera.updateProjectionMatrix();
-        this.camera.position.set(0, 0, 2);
+        this.camera.position.set(0, 0, 3);
         this.camera.lookAt(0, 0, 0);
     }
 
@@ -107,17 +122,40 @@ export default class ThreeSketchModule {
     }
 
     createObjects() {
-        this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1);
-        this.plane = new THREE.Mesh(this.geometry, this.materials.rgb);
+        // Plane
+        const planeGeo = new THREE.PlaneGeometry(1, 1, 1, 1);
+        const plane = new THREE.Mesh(planeGeo, this.materials.rgb);
 
-        let instance = new THREE.InstancedMesh(this.geometry, this.materials.rgb, 1);
-        instance.position.y += -1.05;
+        this.scene.add(plane);
+        this.meshes.push(plane);
 
-        this.scene.add(this.plane);
-        this.meshes.push(this.plane);
+        // Plane Instance
+        const planeInstance = new THREE.InstancedMesh(planeGeo, this.materials.rgb, 1);
+        planeInstance.position.y += -1.05;
 
-        this.scene.add(instance);
-        this.meshes.push(instance);
+        this.scene.add(planeInstance);
+        this.meshes.push(planeInstance);
+
+        // BoxGeometry
+        const boxGeo = new THREE.BoxGeometry( 1, 1, 1 );
+        const box = new THREE.Mesh(boxGeo, this.materials.rgb);
+        box.position.x -= 1.5;
+
+        this.scene.add(box);
+        this.meshes.push(box);  
+
+        // Sphere
+        const sphereGeo = new THREE.SphereGeometry( .5, 32, 16 );
+        const sphere = new THREE.Mesh(sphereGeo, new THREE.MeshStandardMaterial( { color: 0x2e2e2e }));
+        sphere.position.y += 1;
+
+        this.scene.add(sphere);
+        this.meshes.push(sphere);  
+
+         // Light
+        const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+        this.scene.add( directionalLight );
+        this.lights.push(directionalLight);  
     }
 
     createMaterial() {
@@ -131,7 +169,7 @@ export default class ThreeSketchModule {
                 iResolution:  { value: new THREE.Vector3() },
                 iMouse: { value: this.mouse }
             },
-            // wireframe: true,
+            wireframe: true,
             // vertexShader: vertex,
             transparent: true,
             fragmentShader: fragmentRGB
@@ -169,7 +207,7 @@ export default class ThreeSketchModule {
     }
 
     animate() {
-        this.time = performance.now() * .0025;
+        this.time = this.clock.getElapsedTime();
 
         for (const [key, value] of Object.entries(this.materials)) {
             value.uniforms.iResolution.value.set(this.width, this.height, 1);
