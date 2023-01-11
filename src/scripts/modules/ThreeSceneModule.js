@@ -1,6 +1,8 @@
+// GSAP - https://greensock.com/docs/v3/GSAP/Timeline
+import { gsap, Quad } from 'gsap';
+
 // Module(s)
 import ThreeSketch from './ThreeSketchModule';
-import { gsap, Quad } from 'gsap';
 
 // Class - ThreeSceneModule
 export default class ThreeSceneModule {

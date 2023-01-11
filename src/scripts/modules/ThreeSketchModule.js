@@ -11,9 +11,6 @@ import fragmentRGB from '../shaders/rgb/fragment.glsl';
 // DAT GUI - https://github.com/dataarts/dat.gui
 import * as dat from 'dat.gui';
 
-// GSAP - https://greensock.com/docs/v3/GSAP/Timeline
-import { gsap, Quad } from 'gsap';
-
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -21,17 +18,16 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export default class ThreeSketchModule {
     constructor(options) {
         this.options = options;
+        this.container = this.options.dom;
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.time = 0;
-        this.speed = 0;
         this.geometry = null;
         this.plane = null;
         this.meshGroup = new THREE.Group();
         this.meshes = [];
         this.materials = {};
         this.mouse = {x: 0, y: 0};
-        // this.tl = gsap.timeline();
         
         this.setScene();
         this.setRenderer();
@@ -41,6 +37,10 @@ export default class ThreeSketchModule {
         this.createObjects();
         this.createGUI();
         this.resize();
+    }
+
+    getTime() {
+        return this.time;
     }
 
     createGUI() {
@@ -77,16 +77,12 @@ export default class ThreeSketchModule {
 
     setRenderer() {
         // Renderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
-        this.renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true
-        });
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.width, this.height);
         this.renderer.sortObjects = false;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
 
-        this.container = this.options.dom;
         this.container.appendChild(this.renderer.domElement);
     }
 
@@ -180,7 +176,10 @@ export default class ThreeSketchModule {
             value.uniforms.iTime.value = this.time;
         }
 
-        this.controls.update();
+        if (this.controls) {
+            this.controls.update();
+        }
+
         this.renderer.render(this.scene, this.camera);
     }
 }
