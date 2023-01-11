@@ -55,14 +55,14 @@ const App = (() => {
         });
     }
 
-    function createObjects() {
+    function create() {
         NoJS = new NoJSModule();
         ThreeScene = new ThreeSceneModule({ dom: '#scene', orbitControls: true });
         SimpleModal = new SimpleModalComponent('data-modal="MODAL-ID"');
     }
 
     function init() {
-        createObjects();
+        create();
         bindWindowEvents();
         play();
     }
