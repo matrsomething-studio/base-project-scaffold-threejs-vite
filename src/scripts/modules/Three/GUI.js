@@ -1,14 +1,12 @@
-import ThreeExperience from './Experience';
-
 // DAT GUI - https://github.com/dataarts/dat.gui
 import * as dat from 'dat.gui';
 
-// Class - ThreeExperience
-export default class ThreeGUI extends ThreeExperience {
-    constructor(options) {
-       super(options);
+// Class - ThreeGUI
+export default class ThreeGUI  {
+    constructor(experience) {
+        this.experience = experience;
 
-       if (!this.options.showGUI) {
+       if (!this.experience.options.showGUI) {
             return;
         }
 
@@ -17,7 +15,7 @@ export default class ThreeGUI extends ThreeExperience {
         const cords = ['x', 'y', 'z'];
 
         // Meshes
-        this.meshes.forEach((mesh, indx) => {
+        this.experience.meshes.forEach((mesh, indx) => {
             let folder = this.GUI.addFolder(`${mesh.geometry.type} 00${++indx}`);
 
             cords.forEach(cord => {
@@ -34,7 +32,7 @@ export default class ThreeGUI extends ThreeExperience {
         });
         
         // Lights
-        this.lights.forEach((light, indx) => {
+        this.experience.lights.forEach((light, indx) => {
             let folder = this.GUI.addFolder(`${light.type} 00${++indx}`);
 
             cords.forEach(cord => {
