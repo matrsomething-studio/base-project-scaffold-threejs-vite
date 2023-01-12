@@ -6,7 +6,7 @@ import SimpleModalComponent from './components/SimpleModal';
 
 // Module(s)
 import NoJSModule from './modules/NoJSModule';
-import SceneModule from './modules/ThreeScene';
+import SceneModule from './modules/Three/Scene';
 
 // App
 const App = (() => {

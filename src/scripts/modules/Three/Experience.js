@@ -11,7 +11,7 @@ import * as THREE from 'three';
 
 
 // Shaders
-import fragmentRGB from '../shaders/rgb/fragment.glsl';
+import fragmentRGB from '../../shaders/rgb/fragment.glsl';
 
 // DAT GUI - https://github.com/dataarts/dat.gui
 import * as dat from 'dat.gui';
@@ -19,19 +19,25 @@ import * as dat from 'dat.gui';
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-// Class - ThreeExperience
+// Class - ThreeSketchModule
 export default class ThreeExperience {
     constructor(options) {
         this.options = options;
         this.container = document.querySelector(this.options.domSelector);
+        
         this.width = window.innerWidth;
         this.height = window.innerHeight;
+        
         this.time = { start: Date.now(), last: 0, elapsed: 0, delta: 0 };
         this.clock = new THREE.Clock();
+        
         this.meshGroup = new THREE.Group();
         this.meshes = [];
+        
         this.lights = [];
+        
         this.materials = {};
+        
         this.mouse = { x: 0, y: 0, cursor: {x: 0, y: 0} };
         
         this.setScene();
@@ -40,47 +46,7 @@ export default class ThreeExperience {
         this.setControls();
         this.createMaterials();
         this.createObjects();
-        this.createGUI();
         this.resize();
-    }
-
-    createGUI() {
-        if (!this.options.showGUI) {
-            return;
-        }
-
-        // DAT GUI - https://github.com/dataarts/dat.gui
-        this.GUI = new dat.GUI();
-        const cords = ['x', 'y', 'z'];
-
-        // Meshes
-        this.meshes.forEach((mesh, indx) => {
-            let folder = this.GUI.addFolder(`${mesh.geometry.type} 00${++indx}`);
-
-            cords.forEach(cord => {
-                folder.add(mesh.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
-                folder.add(mesh.rotation, cord, 0, Math.PI * 2, 0.01).name( `Rotate ${cord}` ); 
-                folder.add(mesh.scale, cord, 0, 1, 0.01).name( `Scale ${cord}` ); 
-            });
-
-            folder.add(mesh, 'visible', 0, 1, 0.01); 
-
-            if (indx === 1) {
-                folder.open();
-            }
-        });
-        
-        // Lights
-        this.lights.forEach((light, indx) => {
-            let folder = this.GUI.addFolder(`${light.type} 00${++indx}`);
-
-            cords.forEach(cord => {
-                folder.add(light.position, cord, -1, 1, 0.01).name( `Translate ${cord}` ); 
-            });
-
-            folder.add(light, 'intensity', 0, 1, 0.1);
-            folder.add(light, 'visible', 0, 1, 0.01); 
-        });
     }
 
     getTime() {
