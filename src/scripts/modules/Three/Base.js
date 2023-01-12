@@ -1,20 +1,8 @@
-// https://threejs.org/
-// https://r105.threejsfundamentals.org/
+// Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
-
-
-// https://threejs.org/docs/#examples/en/loaders
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
-// import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-// import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
-
 
 // Shaders
 import fragmentRGB from '../../shaders/rgb/fragment.glsl';
-
-// DAT GUI - https://github.com/dataarts/dat.gui
-import * as dat from 'dat.gui';
 
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -23,8 +11,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export default class ThreeBase {
     constructor(options) {
         this.options = options;
+
         this.container = document.querySelector(this.options.domSelector);
-        
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         
@@ -35,10 +23,8 @@ export default class ThreeBase {
         this.meshes = [];
         
         this.lights = [];
-        
         this.materials = {};
-        
-        this.mouse = { x: 0, y: 0, cursor: {x: 0, y: 0} };
+        this.mouse = { x: 0, y: 0};
         
         this.setScene();
         this.setRenderer();

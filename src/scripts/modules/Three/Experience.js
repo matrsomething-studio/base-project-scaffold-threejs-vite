@@ -9,10 +9,11 @@ import ThreeGUI from './GUI';
 export default class ThreeExperience extends ThreeBase {
     constructor(options) {
         super(options);
-        this.cursor = { x: 0, y: 0 };
-        this.wheel = null;
+
         this.mouse = null;
-        this.bind();
+        this.wheel = 0;
+        this.cursor = { x: 0, y: 0 };
+        
         new ThreeGUI(this);
     }
 
@@ -24,9 +25,5 @@ export default class ThreeExperience extends ThreeBase {
         this.mouse = mouse;
         this.cursor.x = this.mouse.clientX / this.width - 0.5;
         this.cursor.y = this.mouse.clientY / this.height - 0.5;
-    }
-
-    bind() {
-        console.log('Binding ThreeExperience Events');
     }
 }
