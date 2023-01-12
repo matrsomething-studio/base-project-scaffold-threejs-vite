@@ -17,7 +17,7 @@ const App = (() => {
     let requestID = null;
 
     function raf() {
-        ThreeScene.animate();
+        ThreeScene.update();
         requestID = requestAnimationFrame(raf);
     }
 

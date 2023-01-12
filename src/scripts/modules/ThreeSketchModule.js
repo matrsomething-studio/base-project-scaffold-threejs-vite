@@ -2,8 +2,13 @@
 // https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
-// https://threejs.org/docs/#examples/en/loaders/GLTFLoader
-// import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+// https://threejs.org/docs/#examples/en/loaders
+// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+// import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
+// import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
+// import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+
 
 // Shaders
 import fragmentRGB from '../shaders/rgb/fragment.glsl';
@@ -21,7 +26,7 @@ export default class ThreeSketchModule {
         this.container = document.querySelector(this.options.domSelector);
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        this.time = 0;
+        this.time = { start: Date.now(), last: 0, elapsed: 0, delta: 0 };
         this.clock = new THREE.Clock();
         this.meshGroup = new THREE.Group();
         this.meshes = [];
@@ -90,8 +95,8 @@ export default class ThreeSketchModule {
     setRenderer() {
         // Renderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.width, this.height);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.renderer.sortObjects = false;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
 
@@ -101,9 +106,9 @@ export default class ThreeSketchModule {
     setCamera() {
         // Camera - https://threejs.org/docs/?q=PerspectiveCamera#api/en/cameras/PerspectiveCamera
         this.camera = new THREE.PerspectiveCamera(
-            70,
+            75,
             this.width / this.width,
-            0.001,
+            0.1,
             1000
         );
         this.camera.updateProjectionMatrix();
@@ -115,6 +120,7 @@ export default class ThreeSketchModule {
         // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
         if (this.options.orbitControls) {
             this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+            this.controls.enableDamping = true
         }
     }
 
@@ -203,12 +209,15 @@ export default class ThreeSketchModule {
         this.camera.updateProjectionMatrix();
     }
 
-    animate() {
-        this.time = this.clock.getElapsedTime();
+    update() {
+        this.time.elapsed = this.clock.getElapsedTime();
+        this.time.delta = this.time.elapsed - this.time.last;
+        this.time.elapsed = this.time.elapsed;
 
+        
         for (const [key, value] of Object.entries(this.materials)) {
             value.uniforms.iResolution.value.set(this.width, this.height, 1);
-            value.uniforms.iTime.value = this.time;
+            value.uniforms.iTime.value = this.time.elapsed;
         }
 
         if (this.controls) {

@@ -29,11 +29,11 @@ export default class ThreeSceneModule {
         this.sketch.mouse.cursor.y = this.mouse.clientY / this.sketch.height - 0.5;
     }
 
-    animate() {
+    update() {
         // this.sketch.camera.position.x = -this.sketch.mouse.cursor.x;
         // this.sketch.camera.position.y = -this.sketch.mouse.cursor.y;
         
-        this.sketch.animate();
+        this.sketch.update();
     }
 
     resize() {
