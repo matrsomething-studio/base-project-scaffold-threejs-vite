@@ -19,8 +19,8 @@ import * as dat from 'dat.gui';
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-// Class - ThreeSketchModule
-export default class ThreeSketchModule {
+// Class - ThreeExperience
+export default class ThreeExperience {
     constructor(options) {
         this.options = options;
         this.container = document.querySelector(this.options.domSelector);

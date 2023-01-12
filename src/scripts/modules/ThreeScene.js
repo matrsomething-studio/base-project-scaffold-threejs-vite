@@ -2,13 +2,13 @@
 import { gsap, Quad } from 'gsap';
 
 // Module(s)
-import ThreeSketch from './ThreeSketchModule';
+import ThreeExperience from './ThreeExperience';
 
-// Class - ThreeSceneModule
-export default class ThreeSceneModule {
+// Class - ThreeScene
+export default class ThreeScene {
     constructor(options) {
         this.options = options;
-        this.sketch = new ThreeSketch(this.options);
+        this.sketch = new ThreeExperience(this.options);
         this.wheel = null;
         this.mouse = null;
         
@@ -41,6 +41,6 @@ export default class ThreeSceneModule {
     }
 
     bindEvents() {
-        console.log('Binding ThreeSceneModule Events');
+        console.log('Binding ThreeScene Events');
     }
 }

@@ -6,18 +6,18 @@ import SimpleModalComponent from './components/SimpleModal';
 
 // Module(s)
 import NoJSModule from './modules/NoJSModule';
-import ThreeSceneModule from './modules/ThreeSceneModule';
+import SceneModule from './modules/ThreeScene';
 
 // App
 const App = (() => {
     let NoJS = null;
     let SimpleModal = null;
-    let ThreeScene = null;
+    let Scene = null;
     let isPlaying = false;
     let requestID = null;
 
     function raf() {
-        ThreeScene.update();
+        Scene.update();
         requestID = requestAnimationFrame(raf);
     }
 
@@ -37,7 +37,7 @@ const App = (() => {
 
     function bindWindowEvents() {
         window.addEventListener('resize', (e) => {
-            ThreeScene.resize();
+            Scene.resize();
         });
 
         window.addEventListener('keydown', function(e){
@@ -47,17 +47,17 @@ const App = (() => {
         });
 
         window.addEventListener('mousemove', function(e){
-            ThreeScene.setMouse(e);
+            Scene.setMouse(e);
         });
 
         window.addEventListener('wheel', function(e){
-            ThreeScene.setWheel(e);
+            Scene.setWheel(e);
         });
     }
 
     function create() {
         NoJS = new NoJSModule();
-        ThreeScene = new ThreeSceneModule({ domSelector: '#scene', orbitControls: true, showGUI: true });
+        Scene = new SceneModule({ domSelector: '#scene', orbitControls: true, showGUI: true });
         SimpleModal = new SimpleModalComponent({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
     }
 
