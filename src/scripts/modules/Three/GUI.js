@@ -6,10 +6,6 @@ export default class ThreeGUI  {
     constructor(base) {
         this.base = base;
 
-       if (!this.base.options.showGUI) {
-            return;
-        }
-
         // DAT GUI - https://github.com/dataarts/dat.gui
         this.GUI = new dat.GUI();
         const cords = ['x', 'y', 'z'];

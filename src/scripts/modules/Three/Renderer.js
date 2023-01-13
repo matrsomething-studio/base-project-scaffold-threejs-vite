@@ -4,7 +4,6 @@ import * as THREE from 'three';
 // Module(s)
 import ThreeCamera from './Camera';
 
-
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
 export default class ThreeRenderer extends ThreeCamera  {
     constructor(options) {

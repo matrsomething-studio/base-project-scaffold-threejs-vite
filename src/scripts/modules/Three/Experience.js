@@ -16,15 +16,19 @@ export default class ThreeExperience extends ThreeRenderer  {
     constructor(options) {
         super(options);
 
-         if (this.options.orbitControls) {
+        this.createMaterials();
+        this.createObjects();
+
+        if (this.options.orbitControls) {
             this.orbit = new OrbitControls(this.camera, this.renderer.domElement);
             this.orbit.enableDamping = true
         }
+        
+        if (this.options.showGUI) {
+            this.gui = new ThreeGUI(this);
+        }
 
-        this.createMaterials();
-        this.createObjects();
         this.resize();
-        this.gui = new ThreeGUI(this);
     }
 
     createObjects() {
@@ -94,12 +98,14 @@ export default class ThreeExperience extends ThreeRenderer  {
         if (this.time) {
             this.updateTime();
         }
-    
-        for (const [key, value] of Object.entries(this.materials)) {
-            value.uniforms.iResolution.value.set(this.width, this.height, 1);
-            value.uniforms.iTime.value = this.time.elapsed;
-        }
 
+        if (this.materials) {
+            for (const [key, value] of Object.entries(this.materials)) {
+                value.uniforms.iResolution.value.set(this.width, this.height, 1);
+                value.uniforms.iTime.value = this.time.elapsed;
+            }
+        }
+    
         if (this.orbit) {
             this.orbit.update();
         }
