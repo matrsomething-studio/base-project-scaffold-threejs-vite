@@ -8,7 +8,7 @@ import ThreeExperience from './components/ThreeExperience';
 
 // App
 const App = (() => {
-    let NoJSDemo = null;
+    let DemoNoJS = null;
     let DemoModal = null;
     let DemoExperience = null;
     let playing = false;
@@ -56,7 +56,7 @@ const App = (() => {
     }
 
     function create() {
-        NoJSDemo = new NoJS();
+        DemoNoJS = new NoJS();
         DemoModal = new SimpleModal({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
         DemoExperience = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
     }
