@@ -1,5 +1,3 @@
-// Module(s)
-
 // Class - NoJSModule
 export default class NoJSModule {
     constructor(options) {

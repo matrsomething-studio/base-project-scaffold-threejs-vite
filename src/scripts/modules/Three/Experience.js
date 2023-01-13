@@ -11,7 +11,6 @@ import fragmentRGB from '../../shaders/rgb/fragment.glsl';
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
 export default class ThreeExperience extends ThreeRenderer  {
     constructor(options) {
