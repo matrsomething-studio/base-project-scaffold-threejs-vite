@@ -11,29 +11,8 @@ const App = (() => {
     let JSKnow = null;
     let DemoModal = null;
     let DemoExp = null;
-    let playing = false;
-    let rafID = null;
 
-    function update() {
-        DemoExp.update();
-        rafID = requestAnimationFrame(update);
-    }
-
-    function play() {
-        if (!playing) {
-            update();
-            playing = true;
-        }
-    }
-
-    function stop() {
-        if (playing) {
-            cancelAnimationFrame(rafID);
-            playing = false;
-        }
-    }
-
-    function bind() {
+    function bindEvents() {
         window.addEventListener('resize', (e) => {
             DemoExp.resize();
         });
@@ -55,16 +34,11 @@ const App = (() => {
         });
     }
 
-    function create() {
+    function init() {
         JSKnow = new KnowJS();
         DemoModal = new SimpleModal({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
-        DemoExp = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
-    }
-
-    function init() {
-        create();
-        bind();
-        play();
+        DemoExp = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true }, 'Helloworld');
+        bindEvents();
     }
     
     return {
