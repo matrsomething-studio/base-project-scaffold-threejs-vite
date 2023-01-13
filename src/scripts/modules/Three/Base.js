@@ -1,11 +1,15 @@
 // Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
+// Module(s)
+import ThreeGUI from './GUI';
+import ThreeScene from './Scene';
+import ThreeRenderer from './Renderer';
+import ThreeControls from './Controls';
+
 // Shaders
 import fragmentRGB from '../../shaders/rgb/fragment.glsl';
 
-// Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 // Class - ThreeBase
 export default class ThreeBase {
@@ -13,6 +17,7 @@ export default class ThreeBase {
         this.options = options;
 
         this.container = document.querySelector(this.options.domSelector);
+        
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         
@@ -23,37 +28,38 @@ export default class ThreeBase {
         this.meshes = [];
         
         this.lights = [];
-        this.materials = {};
-        this.mouse = { x: 0, y: 0};
         
-        this.setScene();
-        this.setRenderer();
+        this.materials = {};
+
+        this.mouse = null;
+        this.cursor = { x: 0, y: 0 };
+        this.wheel = 0;
+        
+        this.scene = new ThreeScene(this);
+        this.renderer = new ThreeRenderer(this);
         this.setCamera();
-        this.setControls();
+        this.controls = new ThreeControls(this);
         this.createMaterials();
         this.createObjects();
+
         this.resize();
+        this.gui = new ThreeGUI(this);
     }
 
     getTime() {
         return this.time;
     }
 
-    setScene() {
-        // Scene - https://threejs.org/docs/?q=Scene#api/en/scenes/Scene
-        this.scene = new THREE.Scene();
+    setWheel(wheel){
+        this.wheel = wheel;
     }
 
-    setRenderer() {
-        // Renderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(this.width, this.height);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-        this.renderer.sortObjects = false;
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
-
-        this.container.appendChild(this.renderer.domElement);
+    setMouse(mouse){
+        this.mouse = mouse;
+        this.cursor.x = this.mouse.clientX / this.width - 0.5;
+        this.cursor.y = this.mouse.clientY / this.height - 0.5;
     }
+
 
     setCamera() {
         // Camera - https://threejs.org/docs/?q=PerspectiveCamera#api/en/cameras/PerspectiveCamera
@@ -68,27 +74,20 @@ export default class ThreeBase {
         this.camera.lookAt(0, 0, 0);
     }
 
-    setControls() {
-        // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
-        if (this.options.orbitControls) {
-            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-            this.controls.enableDamping = true
-        }
-    }
 
     createObjects() {
         // Plane
         const planeGeo = new THREE.PlaneGeometry(1, 1, 1, 1);
         const plane = new THREE.Mesh(planeGeo, this.materials.rgb);
 
-        this.scene.add(plane);
+        this.scene.scene.add(plane);
         this.meshes.push(plane);
 
         // Plane Instance
         const planeInstance = new THREE.InstancedMesh(planeGeo, this.materials.rgb, 1);
         planeInstance.position.y += -1.05;
 
-        this.scene.add(planeInstance);
+        this.scene.scene.add(planeInstance);
         this.meshes.push(planeInstance);
 
         // BoxGeometry
@@ -96,7 +95,7 @@ export default class ThreeBase {
         const box = new THREE.Mesh(boxGeo, this.materials.rgb);
         box.position.x -= 1.5;
 
-        this.scene.add(box);
+        this.scene.scene.add(box);
         this.meshes.push(box);  
 
         // Sphere
@@ -104,12 +103,12 @@ export default class ThreeBase {
         const sphere = new THREE.Mesh(sphereGeo, new THREE.MeshStandardMaterial( { color: 0x2e2e2e }));
         sphere.position.y += 1;
 
-        this.scene.add(sphere);
+        this.scene.scene.add(sphere);
         this.meshes.push(sphere);  
 
          // Light
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-        this.scene.add( directionalLight );
+        this.scene.scene.add( directionalLight );
         this.lights.push(directionalLight);  
     }
 
@@ -136,7 +135,7 @@ export default class ThreeBase {
     resize() {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        this.renderer.setSize(this.width, this.height);
+        this.renderer.resize();
         this.camera.aspect = this.width / this.height;
 
         let a1, a2;
@@ -166,7 +165,6 @@ export default class ThreeBase {
         this.time.delta = this.time.elapsed - this.time.last;
         this.time.elapsed = this.time.elapsed;
 
-        
         for (const [key, value] of Object.entries(this.materials)) {
             value.uniforms.iResolution.value.set(this.width, this.height, 1);
             value.uniforms.iTime.value = this.time.elapsed;
@@ -176,6 +174,6 @@ export default class ThreeBase {
             this.controls.update();
         }
 
-        this.renderer.render(this.scene, this.camera);
+        this.renderer.renderer.render(this.scene.scene, this.camera);
     }
 }

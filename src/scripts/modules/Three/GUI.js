@@ -3,10 +3,10 @@ import * as dat from 'dat.gui';
 
 // Class - ThreeGUI
 export default class ThreeGUI  {
-    constructor(experience) {
-        this.experience = experience;
+    constructor(base) {
+        this.base = base;
 
-       if (!this.experience.options.showGUI) {
+       if (!this.base.options.showGUI) {
             return;
         }
 
@@ -15,7 +15,7 @@ export default class ThreeGUI  {
         const cords = ['x', 'y', 'z'];
 
         // Meshes
-        this.experience.meshes.forEach((mesh, indx) => {
+        this.base.meshes.forEach((mesh, indx) => {
             let folder = this.GUI.addFolder(`${mesh.geometry.type} 00${++indx}`);
 
             cords.forEach(cord => {
@@ -32,7 +32,7 @@ export default class ThreeGUI  {
         });
         
         // Lights
-        this.experience.lights.forEach((light, indx) => {
+        this.base.lights.forEach((light, indx) => {
             let folder = this.GUI.addFolder(`${light.type} 00${++indx}`);
 
             cords.forEach(cord => {

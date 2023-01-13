@@ -6,18 +6,18 @@ import SimpleModalComponent from './components/SimpleModal';
 
 // Module(s)
 import NoJSModule from './modules/NoJSModule';
-import ExperienceModule from './modules/Three/Experience';
+import BaseModule from './modules/Three/Base';
 
 // App
 const App = (() => {
     let NoJS = null;
     let SimpleModal = null;
-    let Experience = null;
+    let Base = null;
     let isPlaying = false;
     let requestID = null;
 
     function raf() {
-        Experience.update();
+        Base.update();
         requestID = requestAnimationFrame(raf);
     }
 
@@ -37,7 +37,7 @@ const App = (() => {
 
     function bindWindowEvents() {
         window.addEventListener('resize', (e) => {
-            Experience.resize();
+            Base.resize();
         });
 
         window.addEventListener('keydown', function(e){
@@ -47,17 +47,17 @@ const App = (() => {
         });
 
         window.addEventListener('mousemove', function(e){
-            Experience.setMouse(e);
+            Base.setMouse(e);
         });
 
         window.addEventListener('wheel', function(e){
-            Experience.setWheel(e);
+            Base.setWheel(e);
         });
     }
 
     function create() {
         NoJS = new NoJSModule();
-        Experience = new ExperienceModule({ domSelector: '#scene', orbitControls: true, showGUI: true });
+        Base= new BaseModule({ domSelector: '#scene', orbitControls: true, showGUI: true });
         SimpleModal = new SimpleModalComponent({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
     }
 
