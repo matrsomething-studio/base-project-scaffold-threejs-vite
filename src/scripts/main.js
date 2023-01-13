@@ -10,13 +10,13 @@ import ThreeExperience from './components/ThreeExperience';
 const App = (() => {
     let JSKnow = null;
     let DemoModal = null;
-    let DemoExperience = null;
+    let DemoExp = null;
     let playing = false;
-    let requestID = null;
+    let rafID = null;
 
     function update() {
-        DemoExperience.update();
-        requestID = requestAnimationFrame(update);
+        DemoExp.update();
+        rafID = requestAnimationFrame(update);
     }
 
     function play() {
@@ -28,37 +28,37 @@ const App = (() => {
 
     function stop() {
         if (playing) {
-            cancelAnimationFrame(requestID);
+            cancelAnimationFrame(rafID);
             playing = false;
         }
     }
 
     function bind() {
         window.addEventListener('resize', (e) => {
-            DemoExperience.resize();
+            DemoExp.resize();
         });
 
-        window.addEventListener('keydown', function(e){
+        window.addEventListener('keydown', (e) =>{
             if (e.key === 'Escape') {
                 DemoModal.close();
             }
         });
 
-        window.addEventListener('mousemove', function(e){
-            DemoExperience.mouse = e;
-            DemoExperience.cursor.x = e.clientX / DemoExperience.width - 0.5;
-            DemoExperience.cursor.y = e.clientY / DemoExperience.height - 0.5;
+        window.addEventListener('mousemove', (e) =>{
+            DemoExp.mouse = e;
+            DemoExp.cursor.x = e.clientX / DemoExp.width - 0.5;
+            DemoExp.cursor.y = e.clientY / DemoExp.height - 0.5;
         });
 
-        window.addEventListener('wheel', function(e){
-            DemoExperience.wheel = e;
+        window.addEventListener('wheel', (e) =>{
+            DemoExp.wheel = e;
         });
     }
 
     function create() {
         JSKnow = new KnowJS();
         DemoModal = new SimpleModal({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
-        DemoExperience = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
+        DemoExp = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
     }
 
     function init() {

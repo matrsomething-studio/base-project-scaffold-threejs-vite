@@ -8,6 +8,7 @@ import ThreeCamera from './Camera';
 export default class ThreeRenderer extends ThreeCamera  {
     constructor(options) {
         super(options);
+        this.options = options;
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setSize(this.width, this.height);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -18,5 +19,9 @@ export default class ThreeRenderer extends ThreeCamera  {
 
     resizeRenderer() {
         this.renderer.setSize(this.width, this.height);
+    }
+
+    destory() {
+        this.renderer.dispose();
     }
 }

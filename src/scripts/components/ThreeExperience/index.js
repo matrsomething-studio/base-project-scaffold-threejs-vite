@@ -18,6 +18,7 @@ import fragmentRGB from '../../shaders/rgb/fragment.glsl';
 export default class ThreeExperience extends ThreeRenderer  {
     constructor(options) {
         super(options);
+        this.options = options;
         this.tl = gsap.timeline();
         this.setControls();
         this.setMaterials();
@@ -101,10 +102,7 @@ export default class ThreeExperience extends ThreeRenderer  {
     }
 
     bind() {
-        document.querySelector('[data-center]').addEventListener('click', e => {
-            e.preventDefault();
-            this.tl.to(this.camera.position, {duration: 1.25, x: 0, y: 0, z: 3, ease: Quad.easeInOut});
-        });
+        console.log('Bind ThreeExperience Events');
     }
 
     update() {

@@ -5,8 +5,8 @@ import * as THREE from 'three';
 export default class ThreeBase {
     constructor(options) {
         this.options = options;
+
         this.container = document.querySelector(this.options.domSelector);
-        
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.imageAspect = this.options.imageAspect || (1080/1920);

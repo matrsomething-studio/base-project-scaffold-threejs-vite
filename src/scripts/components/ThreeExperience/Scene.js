@@ -8,6 +8,13 @@ import ThreeBase from './Base';
 export default class ThreeScene extends ThreeBase {
     constructor(options) {
         super(options);
+        this.options = options;
         this.scene = new THREE.Scene();
+        this.scene.background = null;
+        this.scene.backgroundBlurriness = 0;
+        this.scene.backgroundIntensity = 1;
+        this.scene.environment = null;
+        this.scene.fog = new THREE.Fog(0x191919, 1.00, 10.0);
+        this.scene.overrideMaterial = null;
     }
 }

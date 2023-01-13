@@ -3,13 +3,23 @@ export default class KnowJS {
     constructor(options) {
         this.options = options;
         this.html = document.querySelector('html');
-
-        if (this.options && this.options.hasOwnProperty('enable') && this.options.enable === true) {
-            this.enable();
-            return;
+        
+        if (!this.isJSEnabled) {
+            this.html.classList.remove('no-js');
+            this.html.classList.add('js');
         }
 
-        this.know();
+        if (this.isTouchEnabled) {
+            this.html.classList.add('has-touch');
+        }
+
+        if (this.isRetina) {
+            this.html.classList.add('is-retina');
+        }
+
+        if (this.isWebGLEnabled) {
+            this.html.classList.add('has-webgl');
+        }
     }
 
     get isWebGLEnabled() {
@@ -33,24 +43,5 @@ export default class KnowJS {
             ( window.DocumentTouch && document instanceof window.DocumentTouch) ||
             ( navigator.maxTouchPoints > 0 ) || 
             ( navigator.msMaxTouchPoints > 0 )); 
-    };
-
-    know() {
-        if (!this.isJSEnabled) {
-            this.html.classList.remove('no-js');
-            this.html.classList.add('js');
-        }
-
-        if (this.isTouchEnabled) {
-            this.html.classList.add('has-touch');
-        }
-
-        if (this.isRetina) {
-            this.html.classList.add('is-retina');
-        }
-
-        if (this.isWebGLEnabled) {
-            this.html.classList.add('has-webgl');
-        }
     };
 }

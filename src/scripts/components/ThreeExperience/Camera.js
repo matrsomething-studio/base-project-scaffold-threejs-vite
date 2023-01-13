@@ -7,7 +7,8 @@ import ThreeScene from './Scene';
 // Class - ThreeCamera - https://threejs.org/docs/?q=PerspectiveCamera#api/en/cameras/PerspectiveCamera
 export default class ThreeCamera extends ThreeScene  {
     constructor(options) {
-        super(options);   
+        super(options);
+        this.options = options;
         this.camera = new THREE.PerspectiveCamera(
             75,
             this.width / this.height,
@@ -21,6 +22,6 @@ export default class ThreeCamera extends ThreeScene  {
 
     resizeCamera() {
         this.camera.aspect = this.width / this.height;
-        this.camera.updateProjectionMatrix();   
+        this.camera.updateProjectionMatrix();
     }
 }
