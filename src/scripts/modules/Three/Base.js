@@ -5,8 +5,6 @@ import * as THREE from 'three';
 export default class ThreeBase {
     constructor(options) {
         this.options = options;
-        this.playing = false;
-        this.requestID = null;
         this.container = document.querySelector(this.options.domSelector);
         this.width = window.innerWidth;
         this.height = window.innerHeight;
