@@ -21,18 +21,18 @@ export default class ThreeExperience extends ThreeRenderer  {
         this.createObjects();
         this.tl = gsap.timeline();
 
+        // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
         if (this.options.orbitControls) {
-            // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
             this.orbit = new OrbitControls(this.camera, this.renderer.domElement);
-            // this.orbit.enableDamping = true
+            this.orbit.enableDamping = true
         }
         
         if (this.options.showGUI) {
             this.gui = new ThreeGUI(this);
         }
 
-        this.resize();
         this.bind();
+        this.resize();
     }
 
     createObjects() {
@@ -98,6 +98,13 @@ export default class ThreeExperience extends ThreeRenderer  {
         this.resizeRenderer();
     }
 
+    bind() {
+        document.querySelector('[data-center]').addEventListener('click', e => {
+            e.preventDefault();
+            this.tl.to(this.camera.position, {duration: .25, x: 0, y: 0, z: 3, ease: Quad.easeInOut});
+        });
+    }
+
     update() {
         if (this.time) {
             this.updateTime();
@@ -117,12 +124,5 @@ export default class ThreeExperience extends ThreeRenderer  {
         if (this.renderer) {
             this.renderer.render(this.scene, this.camera);
         }   
-    }
-
-    bind() {
-        document.querySelector('[data-center]').addEventListener('click', e => {
-            e.preventDefault();
-            this.tl.to(this.camera.position, {duration: .25, x: 0, y: 0, z: 3, ease: Quad.easeInOut});
-        });
     }
 }
