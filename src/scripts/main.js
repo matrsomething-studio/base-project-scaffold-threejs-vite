@@ -25,8 +25,8 @@ const App = (() => {
 
         window.addEventListener('mousemove', (e) =>{
             DemoExp.mouse = e;
-            DemoExp.cursor.x = e.clientX / DemoExp.width - 0.5;
-            DemoExp.cursor.y = e.clientY / DemoExp.height - 0.5;
+            DemoExp.cursor.x = (e.clientX / DemoExp.width) - 0.5;
+            DemoExp.cursor.y = (e.clientY / DemoExp.height) - 0.5;
         });
 
         window.addEventListener('wheel', (e) =>{
