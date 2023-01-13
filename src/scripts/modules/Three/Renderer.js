@@ -1,25 +1,25 @@
 // Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
+// Module(s)
+import ThreeCamera from './Camera';
+
+
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
-export default class ThreeRenderer  {
-    constructor(base) {
-        this.base = base;
+export default class ThreeRenderer extends ThreeCamera  {
+    constructor(options) {
+        super(options);
         
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(this.base.width, this.base.height);
+        this.renderer.setSize(this.width, this.height);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.renderer.sortObjects = false;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
 
-        this.base.container.appendChild(this.renderer.domElement);
+        this.container.appendChild(this.renderer.domElement);
     }
 
-    resize() {
-        this.renderer.setSize(this.base.width, this.base.height);
-    }
-
-    update() {
-        this.renderer.render(this.base.scene.getScene(), this.base.camera.camera);
+    resizeRenderer() {
+        this.renderer.setSize(this.width, this.height);
     }
 }
