@@ -50,17 +50,6 @@ export default class ThreeBase {
         return this.time;
     }
 
-    setWheel(wheel){
-        this.wheel = wheel;
-    }
-
-    setMouse(mouse){
-        this.mouse = mouse;
-        this.cursor.x = this.mouse.clientX / this.width - 0.5;
-        this.cursor.y = this.mouse.clientY / this.height - 0.5;
-    }
-
-
     setCamera() {
         // Camera - https://threejs.org/docs/?q=PerspectiveCamera#api/en/cameras/PerspectiveCamera
         this.camera = new THREE.PerspectiveCamera(
@@ -73,7 +62,6 @@ export default class ThreeBase {
         this.camera.position.set(0, 0, 3);
         this.camera.lookAt(0, 0, 0);
     }
-
 
     createObjects() {
         // Plane
@@ -174,6 +162,6 @@ export default class ThreeBase {
             this.controls.update();
         }
 
-        this.renderer.renderer.render(this.scene.scene, this.camera);
+        this.renderer.update();
     }
 }

@@ -35,7 +35,7 @@ const App = (() => {
         }
     }
 
-    function bindWindowEvents() {
+    function bind() {
         window.addEventListener('resize', (e) => {
             Base.resize();
         });
@@ -47,11 +47,13 @@ const App = (() => {
         });
 
         window.addEventListener('mousemove', function(e){
-            Base.setMouse(e);
+            Base.mouse = e;
+            Base.cursor.x = e.clientX / Base.width - 0.5;
+            Base.cursor.y = e.clientY / Base.height - 0.5;
         });
 
         window.addEventListener('wheel', function(e){
-            Base.setWheel(e);
+            Base.wheel = e;
         });
     }
 
@@ -63,7 +65,7 @@ const App = (() => {
 
     function init() {
         create();
-        bindWindowEvents();
+        bind();
         play();
     }
     

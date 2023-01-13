@@ -1,6 +1,3 @@
-// Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
-import * as THREE from 'three';
-
 // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 

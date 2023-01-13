@@ -18,4 +18,8 @@ export default class ThreeRenderer  {
     resize() {
         this.renderer.setSize(this.base.width, this.base.height);
     }
+
+    update() {
+        this.renderer.render(this.base.scene.scene, this.base.camera);
+    }
 }
