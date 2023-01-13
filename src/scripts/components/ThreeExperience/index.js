@@ -12,7 +12,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { gsap, Quad } from 'gsap';
 
 // Shader(s)
-import fragmentRGB from '../../shaders/rgb/fragment.glsl';
+import fragmentRGB from '../../shaders/RGB/fragment.glsl';
 
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
 export default class ThreeExperience extends ThreeRenderer  {
