@@ -1,5 +1,5 @@
-// Class - NoJS
-export default class NoJS {
+// Class - KnowJS
+export default class KnowJS {
     constructor(options) {
         this.options = options;
         this.html = document.querySelector('html');
@@ -9,7 +9,7 @@ export default class NoJS {
             return;
         }
 
-        this.tests();
+        this.know();
     }
 
     get isWebGLEnabled() {
@@ -35,7 +35,7 @@ export default class NoJS {
             ( navigator.msMaxTouchPoints > 0 )); 
     };
 
-    tests() {
+    know() {
         if (!this.isJSEnabled) {
             this.html.classList.remove('no-js');
             this.html.classList.add('js');
