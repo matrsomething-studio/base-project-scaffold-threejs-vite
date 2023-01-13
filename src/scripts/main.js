@@ -13,7 +13,7 @@ const App = (() => {
     let NoJS = null;
     let SimpleModal = null;
     let Experience = null;
-    let isPlaying = false;
+    let playing = false;
     let requestID = null;
 
     function update() {
@@ -22,16 +22,16 @@ const App = (() => {
     }
 
     function play() {
-        if (!isPlaying) {
+        if (!playing) {
             update();
-            isPlaying = true;
+            playing = true;
         }
     }
 
     function stop() {
-        if (isPlaying) {
+        if (playing) {
             cancelAnimationFrame(requestID);
-            isPlaying = false;
+            playing = false;
         }
     }
 

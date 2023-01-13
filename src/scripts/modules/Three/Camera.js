@@ -23,7 +23,6 @@ export default class ThreeCamera extends ThreeScene  {
 
     resizeCamera() {
         this.camera.aspect = this.width / this.height;
-        this.camera.aspect = this.width / this.height;
         this.camera.updateProjectionMatrix();   
     }
 }
