@@ -101,9 +101,7 @@ export default class ThreeExperience extends ThreeRenderer  {
     bind() {
         document.querySelector('[data-center]').addEventListener('click', e => {
             e.preventDefault();
-            this.tl.to(this.camera.position, {duration: 1.25, x: 0, y: 0, z: 3, ease: Quad.easeInOut, onUpdate: function() {
-                this.camera.updateProjectionMatrix();
-            }});
+            this.tl.to(this.camera.position, {duration: 1.25, x: 0, y: 0, z: 3, ease: Quad.easeInOut});
         });
     }
 
