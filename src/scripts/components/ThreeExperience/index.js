@@ -22,6 +22,7 @@ export default class ThreeExperience extends ThreeRenderer  {
         this.tl = gsap.timeline();
         this.playing = false;
         this.rafID = null;
+        this.textureLoader = new THREE.TextureLoader();
         
         this.setControls();
         this.setMaterials();
@@ -63,7 +64,12 @@ export default class ThreeExperience extends ThreeRenderer  {
 
         // Sphere
         const sphereGeo = new THREE.SphereGeometry( .5, 32, 16 );
-        const sphere = new THREE.Mesh(sphereGeo, new THREE.MeshStandardMaterial( { color: 0x2e2e2e }));
+        const texture = this.textureLoader.load('/001.jpg',
+            () =>{console.log('loading finished')},
+            () => {console.log('loading progressing')},
+            () => {console.log('loading error')}
+        );
+        const sphere = new THREE.Mesh(sphereGeo, new THREE.MeshStandardMaterial( { map: texture }));
         sphere.position.y += 1;
 
         this.scene.add(sphere);
