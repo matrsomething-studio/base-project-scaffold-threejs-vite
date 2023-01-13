@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-// Module(s)
+// Components(s)
 import ThreeRenderer from './Renderer';
 import ThreeGUI from './GUI';
 
@@ -101,7 +101,9 @@ export default class ThreeExperience extends ThreeRenderer  {
     bind() {
         document.querySelector('[data-center]').addEventListener('click', e => {
             e.preventDefault();
-            this.tl.to(this.camera.position, {duration: .25, x: 0, y: 0, z: 3, ease: Quad.easeInOut});
+            this.tl.to(this.camera.position, {duration: 1.25, x: 0, y: 0, z: 3, ease: Quad.easeInOut, onUpdate: function() {
+                this.camera.updateProjectionMatrix();
+            }});
         });
     }
 

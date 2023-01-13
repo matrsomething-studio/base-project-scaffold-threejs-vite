@@ -1,7 +1,7 @@
 // Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
-// Module(s)
+// Components(s)
 import ThreeCamera from './Camera';
 
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer

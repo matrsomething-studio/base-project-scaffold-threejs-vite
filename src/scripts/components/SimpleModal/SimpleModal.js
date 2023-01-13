@@ -1,5 +1,3 @@
-// Util(s)
-
 // Class - SimpleModal
 export default class SimpleModal {
     constructor(options) {

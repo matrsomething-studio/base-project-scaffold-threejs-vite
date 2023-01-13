@@ -1,5 +1,5 @@
-// Class - NoJSModule
-export default class NoJSModule {
+// Class - NoJS
+export default class NoJS {
     constructor(options) {
         this.options = options;
         this.html = document.querySelector('html');

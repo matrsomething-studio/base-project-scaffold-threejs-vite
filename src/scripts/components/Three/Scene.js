@@ -1,7 +1,7 @@
 // Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
-// Module(s)
+// Components(s)
 import ThreeBase from './Base';
 
 // Class - ThreeScene - https://threejs.org/docs/?q=Scene#api/en/scenes/Scene

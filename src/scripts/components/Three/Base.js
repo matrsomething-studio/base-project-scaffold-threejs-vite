@@ -10,7 +10,6 @@ export default class ThreeBase {
         this.height = window.innerHeight;
         this.time = { start: Date.now(), last: 0, elapsed: 0, delta: 0 };
         this.clock = new THREE.Clock();
-        this.meshGroup = new THREE.Group();
         this.meshes = [];
         this.lights = [];
         this.materials = {};
