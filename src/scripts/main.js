@@ -2,13 +2,13 @@
 import '../styles/main.scss';
 
 // Components(s)
-import SimpleModalComponent from './components/SimpleModal/SimpleModal';
-import NoJSModule from './components/NoJS/NoJS';
-import ThreeExperience from './components/Three/Experience';
+import SimpleModal from './components/SimpleModal';
+import NoJS from './components/NoJS';
+import ThreeExperience from './components/ThreeExperience';
 
 // App
 const App = (() => {
-    let NoJS = null;
+    let NoJSDemo = null;
     let DemoModal = null;
     let DemoExperience = null;
     let playing = false;
@@ -56,8 +56,8 @@ const App = (() => {
     }
 
     function create() {
-        NoJS = new NoJSModule();
-        DemoModal = new SimpleModalComponent({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
+        NoJSDemo = new NoJS();
+        DemoModal = new SimpleModal({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
         DemoExperience = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
     }
 
