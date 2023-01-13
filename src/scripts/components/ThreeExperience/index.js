@@ -30,7 +30,7 @@ export default class ThreeExperience extends ThreeRenderer  {
     setControls() {
         if (this.options.orbitControls) {
             this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-            this.controls.enableDamping = true
+            this.controls.enableDamping = true;
         }
     }
 
@@ -102,7 +102,7 @@ export default class ThreeExperience extends ThreeRenderer  {
     }
 
     bind() {
-        console.log('Bind ThreeExperience Events');
+            
     }
 
     update() {
@@ -116,7 +116,12 @@ export default class ThreeExperience extends ThreeRenderer  {
                 value.uniforms.iTime.value = this.time.elapsed;
             }
         }
-    
+
+        if(this.meshes) {
+            this.meshes[2].position.z = Math.sin(this.time.elapsed);
+            this.meshes[2].position.y = Math.cos(this.time.elapsed);
+        }
+       
         if (this.controls) {
             this.controls.update();
         }
