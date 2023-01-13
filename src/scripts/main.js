@@ -17,12 +17,6 @@ const App = (() => {
             DemoExp.resize();
         });
 
-        window.addEventListener('keydown', (e) =>{
-            if (e.key === 'Escape') {
-                DemoModal.close();
-            }
-        });
-
         window.addEventListener('mousemove', (e) =>{
             DemoExp.mouse = e;
             DemoExp.cursor.x = (e.clientX / DemoExp.width) - 0.5;
@@ -31,6 +25,12 @@ const App = (() => {
 
         window.addEventListener('wheel', (e) =>{
             DemoExp.wheel = e;
+        });
+
+        window.addEventListener('keydown', (e) =>{
+            if (e.key === 'Escape') {
+                DemoModal.close();
+            }
         });
     }
 
