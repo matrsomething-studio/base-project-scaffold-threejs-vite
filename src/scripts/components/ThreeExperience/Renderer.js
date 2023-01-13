@@ -8,13 +8,11 @@ import ThreeCamera from './Camera';
 export default class ThreeRenderer extends ThreeCamera  {
     constructor(options) {
         super(options);
-        
         this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         this.renderer.setSize(this.width, this.height);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.renderer.sortObjects = false;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
-
         this.container.appendChild(this.renderer.domElement);
     }
 

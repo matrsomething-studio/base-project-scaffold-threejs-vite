@@ -1,41 +1,39 @@
-// Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
+// Doc(s) - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 // Components(s)
 import ThreeRenderer from './Renderer';
 import ThreeGUI from './GUI';
 
+// Control(s) -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
 // GSAP - https://greensock.com/docs/v3/GSAP/Timeline
 import { gsap, Quad } from 'gsap';
 
-// Shaders
+// Shader(s)
 import fragmentRGB from '../../shaders/rgb/fragment.glsl';
 
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
 export default class ThreeExperience extends ThreeRenderer  {
     constructor(options) {
         super(options);
-
-        this.createMaterials();
-        this.createObjects();
         this.tl = gsap.timeline();
-
-        // Controls -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
-        if (this.options.orbitControls) {
-            this.orbit = new OrbitControls(this.camera, this.renderer.domElement);
-            this.orbit.enableDamping = true
-        }
-        
-        if (this.options.showGUI) {
-            this.gui = new ThreeGUI(this);
-        }
-
+        this.setControls();
+        this.setMaterials();
+        this.setObjects();
         this.bind();
         this.resize();
     }
 
-    createObjects() {
+    setControls() {
+        if (this.options.orbitControls) {
+            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+            this.controls.enableDamping = true
+        }
+    }
+
+    setObjects() {
         // Plane
         const planeGeo = new THREE.PlaneGeometry(1, 1, 1, 1);
         const plane = new THREE.Mesh(planeGeo, this.materials.rgb);
@@ -70,9 +68,13 @@ export default class ThreeExperience extends ThreeRenderer  {
         const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
         this.scene.add( directionalLight );
         this.lights.push(directionalLight);  
+
+        if (this.options.showGUI) {
+            this.gui = new ThreeGUI(this);
+        }
     }
 
-    createMaterials() {
+    setMaterials() {
         let material = new THREE.ShaderMaterial({
             extensions: {
                 derivatives: '#extension GL_OES_standard_derivatives : enable'
@@ -117,8 +119,8 @@ export default class ThreeExperience extends ThreeRenderer  {
             }
         }
     
-        if (this.orbit) {
-            this.orbit.update();
+        if (this.controls) {
+            this.controls.update();
         }
 
         if (this.renderer) {

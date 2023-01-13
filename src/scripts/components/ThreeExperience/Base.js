@@ -6,17 +6,21 @@ export default class ThreeBase {
     constructor(options) {
         this.options = options;
         this.container = document.querySelector(this.options.domSelector);
+        
         this.width = window.innerWidth;
         this.height = window.innerHeight;
+        this.imageAspect = this.options.imageAspect || (1080/1920);
+        
         this.time = { start: Date.now(), last: 0, elapsed: 0, delta: 0 };
         this.clock = new THREE.Clock();
+        
         this.meshes = [];
         this.lights = [];
         this.materials = {};
+
         this.mouse = null;
         this.cursor = { x: 0, y: 0 };
         this.wheel = 0;
-        this.imageAspect = 1080 / 1920;
     }
 
     resizeWindow() {
