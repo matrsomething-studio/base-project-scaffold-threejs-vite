@@ -37,7 +37,7 @@ const App = (() => {
     function init() {
         JSKnow = new KnowJS();
         DemoModal = new SimpleModal({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
-        DemoExp = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true }, 'Helloworld');
+        DemoExp = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
         bindEvents();
     }
     
