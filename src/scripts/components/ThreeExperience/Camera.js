@@ -1,7 +1,7 @@
 // Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
-// Module(s)
+// Components(s)
 import ThreeScene from './Scene';
 
 // Class - ThreeCamera - https://threejs.org/docs/?q=PerspectiveCamera#api/en/cameras/PerspectiveCamera
