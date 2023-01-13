@@ -3,7 +3,7 @@ import * as THREE from 'three';
 
 // Components(s)
 import ThreeRenderer from './Renderer';
-import ThreeGUI from './GUI';
+import ThreeDataGUI from './DataGUI';
 
 // Control(s) -  https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
@@ -81,7 +81,7 @@ export default class ThreeExperience extends ThreeRenderer  {
         this.lights.push(directionalLight);  
 
         if (this.options.showGUI) {
-            this.gui = new ThreeGUI(this);
+            this.gui = new ThreeDataGUI(this);
         }
     }
 
