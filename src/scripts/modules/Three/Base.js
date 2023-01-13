@@ -3,64 +3,43 @@ import * as THREE from 'three';
 
 // Module(s)
 import ThreeGUI from './GUI';
-import ThreeScene from './Scene';
-import ThreeRenderer from './Renderer';
+import ThreeCamera from './Camera';
 import ThreeControls from './Controls';
+import ThreeRenderer from './Renderer';
+import ThreeScene from './Scene';
 
 // Shaders
 import fragmentRGB from '../../shaders/rgb/fragment.glsl';
-
 
 // Class - ThreeBase
 export default class ThreeBase {
     constructor(options) {
         this.options = options;
-
         this.container = document.querySelector(this.options.domSelector);
-        
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        
         this.time = { start: Date.now(), last: 0, elapsed: 0, delta: 0 };
         this.clock = new THREE.Clock();
-        
         this.meshGroup = new THREE.Group();
         this.meshes = [];
-        
         this.lights = [];
-        
         this.materials = {};
-
         this.mouse = null;
         this.cursor = { x: 0, y: 0 };
         this.wheel = 0;
-        
+        this.imageAspect = 1080 / 1920;
         this.scene = new ThreeScene(this);
         this.renderer = new ThreeRenderer(this);
-        this.setCamera();
+        this.camera = new ThreeCamera(this);
         this.controls = new ThreeControls(this);
         this.createMaterials();
         this.createObjects();
-
-        this.resize();
         this.gui = new ThreeGUI(this);
+        this.resize();
     }
 
     getTime() {
         return this.time;
-    }
-
-    setCamera() {
-        // Camera - https://threejs.org/docs/?q=PerspectiveCamera#api/en/cameras/PerspectiveCamera
-        this.camera = new THREE.PerspectiveCamera(
-            75,
-            this.width / this.width,
-            0.1,
-            1000
-        );
-        this.camera.updateProjectionMatrix();
-        this.camera.position.set(0, 0, 3);
-        this.camera.lookAt(0, 0, 0);
     }
 
     createObjects() {
@@ -124,28 +103,8 @@ export default class ThreeBase {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.renderer.resize();
-        this.camera.aspect = this.width / this.height;
-
-        let a1, a2;
-        this.imageAspect = 1080 / 1920;
-
-        if (this.camera.aspect > this.imageAspect) {
-            a1 = (this.width / this.height) * this.imageAspect;
-            a2 = 1;
-        } else {
-            a1 = 1;
-            a2 = (this.height / this.width) / this.imageAspect;
-        }
-
-        for (const [key, value] of Object.entries(this.materials)) {
-            value.uniforms.iResolution.value.x = this.width;
-            value.uniforms.iResolution.value.y = this.height;
-            value.uniforms.iResolution.value.z = a1;
-            value.uniforms.iResolution.value.w = a2;
-        }
-          
-        this.camera.aspect = this.width / this.height;
-        this.camera.updateProjectionMatrix();
+        this.camera.resize();
+        console.dir(this)
     }
 
     update() {
@@ -162,6 +121,8 @@ export default class ThreeBase {
             this.controls.update();
         }
 
-        this.renderer.update();
+        if (this.renderer) {
+            this.renderer.update();
+        } 
     }
 }

@@ -7,7 +7,7 @@ export default class ThreeControls  {
         this.base = base;
         
         if (this.base.options.orbitControls) {
-            this.orbit = new OrbitControls(this.base.camera, this.base.renderer.renderer.domElement);
+            this.orbit = new OrbitControls(this.base.camera.camera, this.base.renderer.renderer.domElement);
             this.orbit.enableDamping = true
         }
     }

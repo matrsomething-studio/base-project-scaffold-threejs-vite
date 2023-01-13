@@ -20,6 +20,6 @@ export default class ThreeRenderer  {
     }
 
     update() {
-        this.renderer.render(this.base.scene.scene, this.base.camera);
+        this.renderer.render(this.base.scene.getScene(), this.base.camera.camera);
     }
 }
