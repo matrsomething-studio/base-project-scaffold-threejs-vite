@@ -124,7 +124,7 @@ export default class ThreeExperience extends ThreeRenderer  {
 
     stop() {
         if (this.playing) {
-            this.cancelAnimationFrame(this.rafID);
+            window.cancelAnimationFrame(this.rafID);
             this.playing = false;
         }
     }
@@ -155,5 +155,12 @@ export default class ThreeExperience extends ThreeRenderer  {
         }
 
         this.rafID = requestAnimationFrame(this.update.bind(this));
+    }
+
+    destroy() {
+        this.stop();
+        this.destroyRenderer();
+        this.destroyCamera();
+        this.destroyScene();
     }
 }

@@ -18,10 +18,12 @@ export default class ThreeRenderer extends ThreeCamera  {
     }
 
     resizeRenderer() {
-        this.renderer.setSize(this.width, this.height);
+        if (this.renderer) {
+            this.renderer.setSize(this.width, this.height);
+        }
     }
 
-    destory() {
+    destroyRenderer() {
         this.renderer.dispose();
     }
 }
