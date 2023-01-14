@@ -18,6 +18,10 @@ export default class ThreeObjects extends ThreeRenderer {
         this.setMaterials();
         this.setMeshes();
         this.setLights();
+
+        if (this.options.showGUI) {
+            this.gui = new ThreeDataGUI(this);
+        }
     }
 
     setMaterials() {
@@ -82,10 +86,6 @@ export default class ThreeObjects extends ThreeRenderer {
          const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
          this.scene.add( directionalLight );
          this.lights.push(directionalLight);  
- 
-         if (this.options.showGUI) {
-             this.gui = new ThreeDataGUI(this);
-         }
     }
 
     updateMaterials() {
