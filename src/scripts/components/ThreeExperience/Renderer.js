@@ -24,6 +24,8 @@ export default class ThreeRenderer extends ThreeCamera  {
     }
 
     destroyRenderer() {
-        this.renderer.dispose();
+        if (this.renderer) {
+            this.renderer.dispose();
+        }
     }
 }
