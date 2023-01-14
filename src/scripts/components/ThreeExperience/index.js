@@ -52,8 +52,11 @@ export default class ThreeExperience extends ThreeControls  {
         }
 
         if(this.meshes) {
-            this.meshes[2].position.z = Math.sin(this.time.elapsed);
-            this.meshes[2].position.y = Math.cos(this.time.elapsed);
+            this.updateMeshes();
+        }
+
+        if(this.lights) {
+            this.updateLights();
         }
        
         if (this.controls) {

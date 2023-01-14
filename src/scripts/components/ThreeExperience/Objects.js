@@ -16,10 +16,31 @@ export default class ThreeObjects extends ThreeRenderer {
         this.textureLoader = new THREE.TextureLoader();
     
         this.setMaterials();
-        this.setObjects();
+        this.setMeshes();
+        this.setLights();
     }
 
-    setObjects() {
+    setMaterials() {
+        let material = new THREE.ShaderMaterial({
+            extensions: {
+                derivatives: '#extension GL_OES_standard_derivatives : enable'
+            },
+            side: THREE.DoubleSide,
+            uniforms: {
+                iTime: { value: 0 },
+                iResolution:  { value: new THREE.Vector3() },
+                iMouse: { value: this.mouse }
+            },
+            // wireframe: true,
+            // vertexShader: vertex,
+            transparent: true,
+            fragmentShader: fragmentRGB
+        });
+
+        this.materials.rgb = material;
+    }
+
+    setMeshes() {
         // Plane
         const planeGeo = new THREE.PlaneGeometry(1, 1, 1, 1);
         const plane = new THREE.Mesh(planeGeo, this.materials.rgb);
@@ -53,36 +74,18 @@ export default class ThreeObjects extends ThreeRenderer {
         sphere.position.y += 1;
 
         this.scene.add(sphere);
-        this.meshes.push(sphere);  
-
-         // Light
-        const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-        this.scene.add( directionalLight );
-        this.lights.push(directionalLight);  
-
-        if (this.options.showGUI) {
-            this.gui = new ThreeDataGUI(this);
-        }
+        this.meshes.push(sphere);
     }
 
-    setMaterials() {
-        let material = new THREE.ShaderMaterial({
-            extensions: {
-                derivatives: '#extension GL_OES_standard_derivatives : enable'
-            },
-            side: THREE.DoubleSide,
-            uniforms: {
-                iTime: { value: 0 },
-                iResolution:  { value: new THREE.Vector3() },
-                iMouse: { value: this.mouse }
-            },
-            // wireframe: true,
-            // vertexShader: vertex,
-            transparent: true,
-            fragmentShader: fragmentRGB
-        });
-
-        this.materials.rgb = material;
+    setLights() {
+         // Direct Light
+         const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+         this.scene.add( directionalLight );
+         this.lights.push(directionalLight);  
+ 
+         if (this.options.showGUI) {
+             this.gui = new ThreeDataGUI(this);
+         }
     }
 
     updateMaterials() {
@@ -90,5 +93,14 @@ export default class ThreeObjects extends ThreeRenderer {
             value.uniforms.iResolution.value.set(this.width, this.height, 1);
             value.uniforms.iTime.value = this.time.elapsed;
         }
+    }
+
+    updateMeshes() {
+        this.meshes[2].position.z = Math.sin(this.time.elapsed);
+        this.meshes[2].position.y = Math.cos(this.time.elapsed);
+    }
+
+    updateLights() {
+        console.log('Lights!!!');
     }
 }
