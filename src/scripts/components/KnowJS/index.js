@@ -28,20 +28,20 @@ export default class KnowJS {
         if (typeof canvas.getContext === 'function') {
             return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
         }
-    };
+    }
 
     get isRetina() {
         return ('devicePixelRatio' in window && window.devicePixelRatio >= 1.5);
-    };
+    }
     
     get isJSEnabled() {
         return !this.html.classList.contains('no-js') ? true : false;
-    };
+    }
 
     get isTouchEnabled() { 
         return !!(( 'ontouchstart' in window ) ||  
             ( window.DocumentTouch && document instanceof window.DocumentTouch) ||
             ( navigator.maxTouchPoints > 0 ) || 
             ( navigator.msMaxTouchPoints > 0 )); 
-    };
+    }
 }

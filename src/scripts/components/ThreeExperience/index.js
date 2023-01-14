@@ -43,30 +43,12 @@ export default class ThreeExperience extends ThreeControls  {
     }
 
     update() {
-        if (this.time) {
-            this.updateTime();
-        }
-
-        if (this.materials) {
-            this.updateMaterials();
-        }
-
-        if(this.meshes) {
-            this.updateMeshes();
-        }
-
-        if(this.lights) {
-            this.updateLights();
-        }
-       
-        if (this.controls) {
-            this.controls.update();
-        }
-
-        if (this.renderer) {
-            this.renderer.render(this.scene, this.camera);
-        }
-
+        this.updateTime();
+        this.updateMaterials();
+        this.updateMeshes();
+        this.updateLights();
+        this.updateControls();
+        this.updateRenderer();
         this.rafID = requestAnimationFrame(this.update.bind(this));
     }
 

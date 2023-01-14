@@ -17,6 +17,12 @@ export default class ThreeRenderer extends ThreeCamera  {
         this.container.appendChild(this.renderer.domElement);
     }
 
+    updateRenderer() {
+        if (this.renderer) {
+            this.renderer.render(this.scene, this.camera);
+        }
+    }
+
     resizeRenderer() {
         if (this.renderer) {
             this.renderer.setSize(this.width, this.height);

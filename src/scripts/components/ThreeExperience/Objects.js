@@ -89,18 +89,24 @@ export default class ThreeObjects extends ThreeRenderer {
     }
 
     updateMaterials() {
-        for (const [key, value] of Object.entries(this.materials)) {
-            value.uniforms.iResolution.value.set(this.width, this.height, 1);
-            value.uniforms.iTime.value = this.time.elapsed;
+        if (this.materials) {
+            for (const [key, value] of Object.entries(this.materials)) {
+                value.uniforms.iResolution.value.set(this.width, this.height, 1);
+                value.uniforms.iTime.value = this.time.elapsed;
+            }
         }
     }
 
     updateMeshes() {
-        this.meshes[2].position.z = Math.sin(this.time.elapsed);
-        this.meshes[2].position.y = Math.cos(this.time.elapsed);
+        if(this.meshes) {
+            this.meshes[2].position.z = Math.sin(this.time.elapsed);
+            this.meshes[2].position.y = Math.cos(this.time.elapsed);
+        }
     }
 
     updateLights() {
-        console.log('Lights!!!');
+        if(this.lights) {
+            console.log('Update Lights!!!');
+        }
     }
 }

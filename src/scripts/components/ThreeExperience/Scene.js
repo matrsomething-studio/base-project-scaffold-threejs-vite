@@ -19,6 +19,8 @@ export default class ThreeScene extends ThreeBase {
     }
 
     destroyScene() {
-        this.scene = undefined;
+        if (this.scene) {
+            this.scene = undefined;
+        }
     }
 }

@@ -14,6 +14,12 @@ export default class ThreeControls extends ThreeObjects  {
         this.createOrbit();
     }
 
+    updateControls() {
+        if (this.controls) {
+            this.controls.update();
+        }
+    }
+
     createOrbit() {
         if (this.options.orbitControls) {
             this.controls = new OrbitControls(this.camera, this.renderer.domElement);
