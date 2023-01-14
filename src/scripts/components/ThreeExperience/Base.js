@@ -29,8 +29,10 @@ export default class ThreeBase {
     }
 
     updateTime() {
-        this.time.elapsed = this.clock.getElapsedTime();
-        this.time.delta = this.time.elapsed - this.time.previous;
-        this.time.previous = this.time.elapsed;
+        if (this.time) {
+            this.time.elapsed = this.clock.getElapsedTime();
+            this.time.delta = this.time.elapsed - this.time.previous;
+            this.time.previous = this.time.elapsed;
+        }
     }
 }

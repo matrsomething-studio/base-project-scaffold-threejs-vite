@@ -25,20 +25,20 @@ export default class ThreeExperience extends ThreeControls  {
     }
 
     bindEvents() {
-        console.log('ThreeExperience binding');
+        console.log('ThreeExperience event binding');
     }
 
     play() {
         if (!this.playing) {
-            this.update();
             this.playing = true;
+            this.update();
         }
     }
 
     stop() {
         if (this.playing) {
-            window.cancelAnimationFrame(this.rafID);
             this.playing = false;
+            window.cancelAnimationFrame(this.rafID);
         }
     }
 

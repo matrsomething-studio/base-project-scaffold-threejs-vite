@@ -66,7 +66,7 @@ export default class ThreeObjects extends ThreeRenderer {
         // Sphere
         const sphereGeo = new THREE.SphereGeometry( .5, 32, 16 );
         const texture = this.textureLoader.load('/001.jpg',
-            () =>{console.log('loading finished')},
+            () => {console.log('loading finished')},
             () => {console.log('loading progressing')},
             () => {console.log('loading error')}
         );
