@@ -13,19 +13,25 @@ export default class ThreeObjects extends ThreeRenderer {
     constructor(options) {
         super(options);
         this.options = options;
+        this.meshes = [];
+        this.lights = [];
+        this.materials = {};
         this.textureLoader = new THREE.TextureLoader();
     
         this.setMaterials();
         this.setMeshes();
         this.setLights();
+        this.setDataGUI();
+    }
 
+    setDataGUI() {
         if (this.options.showGUI) {
             this.gui = new ThreeDataGUI(this);
         }
     }
 
     setMaterials() {
-        let material = new THREE.ShaderMaterial({
+        this.materials.rgb = new THREE.ShaderMaterial({
             extensions: {
                 derivatives: '#extension GL_OES_standard_derivatives : enable'
             },
@@ -40,8 +46,6 @@ export default class ThreeObjects extends ThreeRenderer {
             transparent: true,
             fragmentShader: fragmentRGB
         });
-
-        this.materials.rgb = material;
     }
 
     setMeshes() {
@@ -86,6 +90,24 @@ export default class ThreeObjects extends ThreeRenderer {
          const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
          this.scene.add( directionalLight );
          this.lights.push(directionalLight);  
+         directionalLight.position.x = -1;
+         directionalLight.position.y = -1;
+         directionalLight.position.z = .5;
+         directionalLight.intensity = .1;
+
+         // Point Light
+         const pointlLight = new THREE.PointLight( 0xffffff, 0.5 );
+         this.scene.add( pointlLight );
+         this.lights.push(pointlLight);  
+         pointlLight.position.x = 1;
+         pointlLight.position.y = 1;
+         pointlLight.position.z = 1;
+
+         // Ambient Light
+         const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
+         this.scene.add( ambientLight );
+         this.lights.push(ambientLight);  
+         ambientLight.intensity = .1;
     }
 
     updateMaterials() {
