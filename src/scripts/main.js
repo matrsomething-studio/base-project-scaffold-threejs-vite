@@ -39,6 +39,9 @@ const App = (() => {
         DemoModal = new SimpleModal({ domSelector: 'data-modal="MODAL-ID"', overflowHide: false });
         DemoExp = new ThreeExperience({ domSelector: '#scene', orbitControls: true, showGUI: true });
         bindEvents();
+        
+        // Dirty preloader for now
+        document.querySelector('#preloader').classList.remove('active');;
     }
     
     return {

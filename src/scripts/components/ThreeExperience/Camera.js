@@ -29,6 +29,8 @@ export default class ThreeCamera extends ThreeScene  {
     }
 
     destroyCamera() {
-        this.camera = undefined;
+        if(this.camera) {
+            this.camera = undefined;
+        }
     }
 }

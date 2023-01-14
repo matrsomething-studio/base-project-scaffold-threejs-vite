@@ -30,7 +30,9 @@ export default class ThreeGUI  {
             let folder = this.GUI.addFolder(`${light.type} 00${++indx}`);
 
             cords.forEach(cord => {
-                folder.add(light.position, cord, -1, 1, 0.01).name( `Translate ${cord}`); 
+                if (!light.type.includes('Ambient')) {
+                    folder.add(light.position, cord, -1, 1, 0.01).name( `Translate ${cord}`); 
+                }
             });
 
             folder.add(light, 'intensity', 0, 1, 0.1);
