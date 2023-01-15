@@ -9,6 +9,7 @@ import ThreeRenderer from './Renderer';
 import ThreeDataGUI from './DataGUI';
 
 // Shader(s)
+import vertexRGB from '../../shaders/rgb/vertex.glsl';
 import fragmentRGB from '../../shaders/rgb/fragment.glsl';
 
 // Class - ThreeObjects - https://threejs.org/docs/?q=Scene#api/en/scenes/Scene
@@ -56,7 +57,7 @@ export default class ThreeObjects extends ThreeRenderer {
                 iMouse: { value: this.mouse }
             },
             // wireframe: true,
-            // vertexShader: vertex,
+            vertexShader: vertexRGB,
             transparent: true,
             fragmentShader: fragmentRGB
         });
@@ -87,7 +88,7 @@ export default class ThreeObjects extends ThreeRenderer {
 
         // Sphere
         const sphereGeo = new THREE.SphereGeometry( .5, 32, 16 );
-        const texture = this.textureLoader.load('/001.jpg',
+        const texture = this.textureLoader.load('images/001.jpg',
             () => {console.log('loading finished')},
             () => {console.log('loading progressing')},
             () => {console.log('loading error')}
