@@ -1,6 +1,9 @@
 // Docs - https://threejs.org/ & https://r105.threejsfundamentals.org/
 import * as THREE from 'three';
 
+// https://threejs.org/docs/#examples/en/loaders/GLTFLoader
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 // Components(s)
 import ThreeRenderer from './Renderer';
 import ThreeDataGUI from './DataGUI';
@@ -17,11 +20,22 @@ export default class ThreeObjects extends ThreeRenderer {
         this.lights = [];
         this.materials = {};
         this.textureLoader = new THREE.TextureLoader();
+        this.GLTFLoader = new GLTFLoader();
     
         this.setMaterials();
         this.setMeshes();
+        this.setImports();
         this.setLights();
         this.setDataGUI();
+    }
+
+    setImports() {
+        this.GLTFLoader.load('data/scene.gltf',  ( gltf ) => {
+            const scene = gltf.scene;
+            scene.scale.set(0.05, 0.05, 0.05);
+            scene.position.set(2, 0.0, 0.0);
+            this.scene.add(scene);
+        } )
     }
 
     setDataGUI() {
@@ -120,14 +134,14 @@ export default class ThreeObjects extends ThreeRenderer {
     }
 
     updateMeshes() {
-        if(this.meshes) {
+        if(this.meshes.length > 0) {
             this.meshes[2].position.z = Math.sin(this.time.elapsed);
             this.meshes[2].position.y = Math.cos(this.time.elapsed);
         }
     }
 
     updateLights() {
-        if(this.lights) {
+        if(this.lights.length > 0) {
             console.log('Update Lights!!!');
         }
     }
