@@ -6,7 +6,7 @@ import SimpleModal from './components/SimpleModal';
 import KnowJS from './components/KnowJS';
 import ThreeExperience from './components/ThreeExperience';
 
-// App
+// App - https://prettier.io/
 const App = (() => {
     let JSKnow = null;
     let DemoModal = null;
