@@ -1,19 +1,16 @@
-
 // Control(s)
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Components(s)
 import ThreeObjects from './Objects';
 
 // Class - ThreeControls - https://threejs.org/docs/?q=OrbitControls#examples/en/controls/OrbitControls
-export default class ThreeControls extends ThreeObjects  {
+export default class ThreeControls extends ThreeObjects {
     constructor(options) {
         super(options);
         this.options = options;
-        this.mouse = null;
-        this.cursor = { x: 0, y: 0 };
-        this.wheel = 0;
-        
+        this.controls = null;
+
         this.createOrbit();
     }
 
@@ -25,7 +22,10 @@ export default class ThreeControls extends ThreeObjects  {
 
     createOrbit() {
         if (this.options.orbitControls) {
-            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+            this.controls = new OrbitControls(
+                this.camera,
+                this.renderer.domElement
+            );
             this.controls.enableDamping = true;
         }
     }

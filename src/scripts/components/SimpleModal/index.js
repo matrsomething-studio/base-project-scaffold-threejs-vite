@@ -11,7 +11,7 @@ export default class SimpleModal {
         this.bindEvents();
     }
 
-    open() {        
+    open() {
         this.modal.classList.add('modal-open');
         this.isOpen = true;
 

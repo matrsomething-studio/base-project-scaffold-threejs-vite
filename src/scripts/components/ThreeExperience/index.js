@@ -5,7 +5,7 @@ import ThreeControls from './Controls';
 import { gsap, Quad } from 'gsap';
 
 // Class - ThreeRenderer - https://threejs.org/docs/#api/en/renderers/WebGLRenderer
-export default class ThreeExperience extends ThreeControls  {
+export default class ThreeExperience extends ThreeControls {
     constructor(options, items) {
         super(options);
         this.options = options;

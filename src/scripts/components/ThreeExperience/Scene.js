@@ -14,7 +14,7 @@ export default class ThreeScene extends ThreeBase {
         this.scene.backgroundBlurriness = 0;
         this.scene.backgroundIntensity = 1;
         this.scene.environment = null;
-        this.scene.fog = new THREE.Fog(0x191919, 1.00, 10.0);
+        this.scene.fog = new THREE.Fog(0x191919, 1.0, 10.0);
         this.scene.overrideMaterial = null;
     }
 

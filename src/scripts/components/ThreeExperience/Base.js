@@ -8,9 +8,12 @@ export default class ThreeBase {
         this.container = document.querySelector(this.options.domSelector);
         this.width = window.innerWidth;
         this.height = window.innerHeight;
-        this.imageAspect = this.options.imageAspect || (1080/1920);
+        this.imageAspect = this.options.imageAspect || 1080 / 1920;
         this.clock = new THREE.Clock();
         this.time = { start: Date.now(), previous: 0, elapsed: 0, delta: 0 };
+        this.mouse = null;
+        this.cursor = { x: 0, y: 0 };
+        this.wheel = 0;
 
         this.updateTime();
     }
