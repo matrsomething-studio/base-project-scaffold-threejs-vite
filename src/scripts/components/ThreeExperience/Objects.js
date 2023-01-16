@@ -37,6 +37,12 @@ export default class ThreeObjects extends ThreeRenderer {
             scene.position.set(2, 0.0, 0.0);
             this.scene.add(scene);
         });
+
+        this.GLTFLoader.load('data/rocks/rock_moss_set_01_4k.gltf', (gltf) => {
+            const scene = gltf.scene;
+            scene.position.set(0.0, 0.0, 0.0);
+            this.scene.add(scene);
+        });
     }
 
     setDataGUI() {
