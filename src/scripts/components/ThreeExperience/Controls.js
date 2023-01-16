@@ -9,9 +9,7 @@ export default class ThreeControls extends ThreeObjects {
     constructor(options) {
         super(options);
         this.options = options;
-        this.mouse = null;
-        this.cursor = { x: 0, y: 0 };
-        this.wheel = 0;
+        this.controls = null;
 
         this.createOrbit();
     }

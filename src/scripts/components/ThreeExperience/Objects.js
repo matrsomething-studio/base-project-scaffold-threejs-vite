@@ -30,21 +30,6 @@ export default class ThreeObjects extends ThreeRenderer {
         this.setDataGUI();
     }
 
-    setImports() {
-        this.GLTFLoader.load('data/scene.gltf', (gltf) => {
-            const scene = gltf.scene;
-            scene.scale.set(0.05, 0.05, 0.05);
-            scene.position.set(2, 0.0, 0.0);
-            this.scene.add(scene);
-        });
-
-        this.GLTFLoader.load('data/rocks/rock_moss_set_01_4k.gltf', (gltf) => {
-            const scene = gltf.scene;
-            scene.position.set(0.0, 0.0, 0.0);
-            this.scene.add(scene);
-        });
-    }
-
     setDataGUI() {
         if (this.options.showGUI) {
             this.gui = new ThreeDataGUI(this);
@@ -118,6 +103,21 @@ export default class ThreeObjects extends ThreeRenderer {
 
         this.scene.add(sphere);
         this.meshes.push(sphere);
+    }
+
+    setImports() {
+        this.GLTFLoader.load('data/scene.gltf', (gltf) => {
+            const scene = gltf.scene;
+            scene.scale.set(0.05, 0.05, 0.05);
+            scene.position.set(2, 0.0, 0.0);
+            this.scene.add(scene);
+        });
+
+        this.GLTFLoader.load('data/rocks/rock_moss_set_01_4k.gltf', (gltf) => {
+            const scene = gltf.scene;
+            scene.position.set(0.0, 0.0, 0.0);
+            this.scene.add(scene);
+        });
     }
 
     setLights() {
